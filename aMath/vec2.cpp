@@ -14,7 +14,11 @@ vec2::vec2(float _x, float _y)
 
 float vec2::magnitude() const
 {
-	return sqrt(x * x + y * y);
+	float temp = sqrt(x * x + y * y);
+	if (temp == 0) {
+		return 0;
+	}
+	return temp;
 }
 
 float vec2::dot(const vec2 & rhs) const
@@ -24,6 +28,10 @@ float vec2::dot(const vec2 & rhs) const
 
 vec2 & vec2::normalize()
 {
+	if (magnitude() == 0) {
+		// do nothing
+		return *this;
+	}
 
 	x /= magnitude();
 	y /= magnitude();
@@ -46,6 +54,21 @@ vec2 & vec2::scale(const vec2 & rhs)
 vec2 vec2::getScaled(const vec2 & rhs) const
 {
 	return vec2(x, y).scale(rhs);
+}
+
+vec2 vec2::getPerpCW() const
+{
+	return vec2(y, -x);
+}
+
+vec2 vec2::getPerpCCW() const
+{
+	return vec2(-y, x);
+}
+
+float vec2::angleBetween(const vec2 & rhs) const
+{
+	return acos(this->dot(rhs) / (this->magnitude() * rhs.magnitude()));
 }
 
 vec2 vec2::operator+(const vec2 & rhs) const
@@ -97,11 +120,7 @@ bool vec2::operator!=(const vec2 rhs) const
 
 vec2 vec2::operator-() const
 {
-	/*vec2 temp(x, y);
-	temp.x *= -1;
-	temp.y *= -1;
-	return temp;*/
-	return vec2(x * -1, y * -1);
+	return vec2(-x, -y);
 }
 
 vec2 vec2::operator*(const float rhs) const
@@ -111,8 +130,8 @@ vec2 vec2::operator*(const float rhs) const
 
 vec2 & vec2::operator*=(const float rhs)
 {
-	x * rhs;
-	y * rhs;
+	x *= rhs;
+	y *= rhs;
 	return *this;
 }
 
@@ -135,15 +154,11 @@ vec2 & vec2::operator/=(const float rhs)
 
 vec2::operator float*()
 {
-	/*float temp[2] = { x, y };
-	return temp;*/
 	return &x;
 }
 
 vec2::operator const float*() const
 {
-	/*float temp[2] = { x, y };
-	return temp;*/
 	return &x;
 }
 
@@ -157,6 +172,87 @@ vec2 vec2::moveTowards(const vec2 & cur, const vec2 & tar, float maxDelta)
 	delta *= maxDelta;
 	// move
 	return cur + delta;
+}
+
+vec2 vec2::getRotated(float deg) const
+{
+	vec2 temp(x, y);
+	temp.rotate(deg);
+	return temp;
+}
+
+vec2 &vec2::rotate(float deg)
+{
+	/*
+	// rotate cw
+	deg *= -1;
+	// float normFact = magnitude();
+	deg *= DEG_TO_RAD;
+	// 0 deg = (1, 0)
+	// add current angle
+	deg += angleBetween(vec2(0, 1));
+	// make rad
+	// deg *= RAD_TO_DEG;
+
+	vec2 temp;
+
+	// temp.x = x * cos(deg) - y * sin(deg);
+	// temp.y = x * sin(deg) + y * cos(deg);
+
+	// this makes length = 1
+	temp.x = cos(deg);
+	temp.y = sin(deg);
+
+	if (temp == vec2(0, temp.y)) {
+		temp.x = 0;
+	}
+	if (temp == vec2(temp.x, 0)) {
+		temp.y = 0;
+	}
+
+	// make same length
+	temp *= magnitude();
+
+	x = temp.x;
+	y = temp.y;
+
+
+	return *this;
+
+	*/
+	/*
+
+	vec2 temp;
+
+	temp.x = x * cos(deg) - y * sin(deg);
+	temp.y = x * sin(deg) + y * cos(deg);
+
+	x = temp.x;
+	y = temp.y;
+
+	// return *this;
+
+	deg *= DEG_TO_RAD;
+
+	float angleFromOrig = angleBetween(vec2(1, 0)) * RAD_TO_DEG;
+	vec2 temp2 = vec2(magnitude() * cos((deg + angleFromOrig) * RAD_TO_DEG), magnitude() * cos((deg + angleFromOrig) * RAD_TO_DEG));
+	return temp2;
+	*/
+
+	// get current angle first
+	vec2 temp;
+	float angleFromOrig = this->angleBetween(vec2(1, 0)) * RAD_TO_DEG; 
+	temp = vec2(cos(deg + angleFromOrig), sin(deg + angleFromOrig));
+
+	temp.normalize();
+
+	temp.x *= cos(deg + angleFromOrig);
+	temp.y *= sin(deg + angleFromOrig);
+
+	x = temp.x;
+	y = temp.y;
+
+	return *this;
 }
 
 //operator Vector2()

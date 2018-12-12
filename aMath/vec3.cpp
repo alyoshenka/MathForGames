@@ -31,6 +31,16 @@ float vec3::dot(const vec3 & rhs) const
 	return x * rhs.x + y * rhs.y + z * rhs.z;
 }
 
+vec3 vec3::cross(const vec3 & rhs) const
+{
+	vec3 temp;
+	temp.x = y * rhs.z - z * rhs.y;
+	temp.y = z * rhs.x - x * rhs.z;
+	temp.z = x * rhs.y - y * rhs.x;
+	// temp.normalize();
+	return temp;
+}
+
 vec3 & vec3::normalize()
 {
 	x /= magnitude();

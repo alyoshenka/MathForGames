@@ -7,26 +7,26 @@ int min(int a, int b) {
 	// return -1;
 }
 
-int min(int a, ...)
-{
-	// setup
-	va_list args;
-	va_start(args, a);
-	int min = va_arg(args, int);
-	int * temp = &min;
-
-	// iterate through
-	while (temp != nullptr) { // pointer stuff
-		temp = &va_arg(args, int);
-		if (temp < &min) {
-			min = *temp;
-		}
-	}
-
-	// stop
-	va_end(args);
-	return min;
-}
+//int min(int a, ...)
+//{
+//	// setup
+//	va_list args;
+//	va_start(args, a);
+//	int min = va_arg(args, int);
+//	int * temp = &min;
+//
+//	// iterate through
+//	while (temp != nullptr) { // pointer stuff
+//		temp = &va_arg(args, int);
+//		if (temp < &min) {
+//			min = *temp;
+//		}
+//	}
+//
+//	// stop
+//	va_end(args);
+//	return min;
+//}
 
 int max(int a, int b)
 {

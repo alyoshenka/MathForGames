@@ -1,21 +1,25 @@
 #include <iostream>
 #include <cassert>
-
-#include "utils.h"
 #include "raylib.h"
+#include "utils.h"
 #include <string>
 #include "vec2.h"
 #include "ball.h"
+#include "enem.h"
+#include "player.h"
+#include "myCircle.h"
 
 // typedef vec2 Vector2;
 
 // min(...) not correct
+// fix macros
+// fix rotate
+// fix pi
 
 int main() {
-
 	/*
-	std::cout << min(2, 3) << std::endl;
 
+	std::cout << min(2, 3) << std::endl;
 	std::cout << pow(2, 2) << std::endl;
 
 	// 0 = true
@@ -30,7 +34,7 @@ int main() {
 	std::cout << moveTowards(0.0f, 5.0f, 3.0f) << std::endl;
 	std::cout << moveTowards(0.0f, 3.0f, 5.0f) << std::endl;
 
-	std::cout << min(-10, 1, 2, 3, 4, -5) << std::endl; // this one
+	// std::cout << min(-10, 1, 2, 3, 4, -5) << std::endl; // this one
 
 	// tests
 	assert(abs(-5) == 5);       // the abs value of -5 is 5
@@ -39,8 +43,14 @@ int main() {
 	// template tests
 	assert(min(5, 6) == min(5.0, 6.0));
 	assert(abs(-5) == abs(-5.0));
+	// vectors
+	vec2 v2a = vec2(13.5f, -48.23f);
+	vec2 v2b = vec2(5, 3.99f);
+	assert(v2a.dot(v2b) == -124.937698364f);
+	assert(v2a.magnitude() == 50.0837593079f);
 	*/
 
+	/*
 	vec2 t1 = vec2(13.5f, -48.23f);
 	vec2 t2 = vec2(5, 3.99f);
 
@@ -113,6 +123,84 @@ int main() {
 	vec2 dir = { 0, 1 };
 	vec2 newVel = scalar * dir;
 	assert(newVel == vec2(0.0f, 3.5f));
+
+	*/
+
+	/*
+	
+	InitWindow(500, 600, "Vectors");
+	SetTargetFPS(60);
+
+	enem e;
+	player p;
+
+	while (!WindowShouldClose()) {
+
+ 		e.update();
+		p.update();
+
+		BeginDrawing();
+		ClearBackground(WHITE);
+
+		e.draw();
+		p.draw();
+
+		EndDrawing();
+	}
+
+	CloseWindow();
+
+	*/
+
+	InitWindow(800, 800, "sincos");
+	SetTargetFPS(60);
+
+	myCircle c;
+	float y = 600.0f;
+	float wave = 0.0f;
+
+	vec2 pts[500];
+	for (int i = 0; i < 500; i++) {
+		pts[i] = { i, y };
+		wave += 0.1; // this stuff right here
+		y += sin(wave);
+	}
+
+	while (!WindowShouldClose()) {
+
+		// c.update();
+		
+
+		BeginDrawing();
+		ClearBackground(WHITE);
+
+		// c.draw();
+
+		DrawText(std::to_string(c.rad).c_str(), 10, 10, 20, BLACK);
+
+		for (int i = 0; i < 50; i++) {
+			DrawCircle(pts[i].x, pts[i].y, 1, PURPLE);
+		}
+
+		EndDrawing();
+	}
+
+	CloseWindow();
+
+	vec2 v1(1, 0);
+	vec2 v2(1, 0);
+	// std::cout << v1.angleBetween(v2) * RAD_TO_DEG << std::endl;
+
+	std::cout << v2.x << ", " << v2.y << std::endl;
+	v2.rotate(90);
+	std::cout << v2.x << ", " << v2.y << std::endl;
+
+	// std::cout << v1.angleBetween(v2) * RAD_TO_DEG << std::endl;
+
+	// std::cout << vec2(sqrt(2), sqrt(2)).angleBetween(vec2(0, 1)) << std::endl;
+	// std::cout << vec2(0, 1).angleBetween(vec2(1, 1)) << std::endl;
+
+	// system("pause");
 
 	return 0;
 }

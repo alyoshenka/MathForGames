@@ -1,3 +1,5 @@
-﻿  ball.cpp
-c:\users\s189076\source\repos\amath\unittest\ball.cpp(51): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  UnitTest.vcxproj -> C:\Users\S189076\source\repos\aMath\Debug\UnitTest.exe
+﻿  main.cpp
+c:\users\s189076\source\repos\mathforgames\unittest\enem.h(5): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(165): warning C4305: '+=': truncation from 'double' to 'float'
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(182): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  UnitTest.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\UnitTest.exe

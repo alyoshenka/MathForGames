@@ -1,7 +1,10 @@
 ﻿  utils.cpp
   vec2.cpp
-c:\users\s189076\source\repos\amath\amath\vec2.cpp(17): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\amath\amath\vec2.cpp(117): warning C4552: '*': result of expression not used
-c:\users\s189076\source\repos\amath\amath\vec2.cpp(118): warning C4552: '*': result of expression not used
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(71): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(244): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(245): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(249): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(250): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
   Generating Code...
-  aMath.vcxproj -> C:\Users\S189076\source\repos\aMath\Debug\aMath.lib
+  aMath.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\aMath.lib

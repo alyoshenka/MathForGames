@@ -1,14 +1,35 @@
 #pragma once
 #include <cfloat>
 #include "math.h"
-
-//#ifdef RAYLIB_H
-//	operator Vector2();
-//#endif
+#include "utils.h"
 
 // typedef vec2 Vector2;
 
 struct vec2 {
+
+#ifdef RAYLIB_H
+	// constructor vec2 from Vector2
+	vec2(Vector2 vec)
+	{
+		x = vec.x;
+		y = vec.y;
+	}
+
+	// convert from Vector2 to vec2
+	vec2& operator =(const Vector2 &rhs)
+	{
+		x = rhs.x;
+		y = rhs.y;
+
+		return *this;
+	}
+
+	// convert from vec2 to Vector2
+	operator Vector2()
+	{
+		return { x , y };
+	}
+#endif
 
 	float x, y;
 
@@ -22,9 +43,10 @@ struct vec2 {
 	vec2 getNormalized() const;
 	vec2 &scale(const vec2 &rhs);
 	vec2 getScaled(const vec2 &rhs) const;
-	// vec2 getPerpCW() const;
-	// vec2 getPerpCCW() const;
-	// float angleBetween(const vec2 &rhs) const;
+	vec2 getPerpCW() const;
+	vec2 getPerpCCW() const;
+	// in radians
+	float angleBetween(const vec2 &rhs) const;
 
 	vec2 operator+(const vec2 &rhs) const;
 	vec2 operator-(const vec2 &rhs) const;
@@ -46,6 +68,8 @@ struct vec2 {
 
 	// helper
 	static vec2 moveTowards(const vec2 & cur, const vec2 & tar, float maxDelta);
+	vec2 &rotate(float deg);
+	vec2 getRotated(float deg) const;
 };
 
 

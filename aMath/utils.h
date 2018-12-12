@@ -5,7 +5,7 @@
 
 // returns smaller of two values
 int min(int a, int b);
-int min(int a, ...); // does not work correctly
+// int min(int a, ...); // does not work correctly
 
 // returns larger of two values
 int max(int a, int b);
@@ -15,12 +15,15 @@ int clamp(int value, int min, int max);
 
 // defined as PI
 // const double PI = 3.141592653589793238;
+#ifndef PI
+	#define PI 3.14159265358979323846f
+#endif
 
 // multiply this with a angle measure expressed in degrees to get its equivalent in radians
-// const double DEG_TO_RAD = PI / 180;
+const double DEG_TO_RAD = PI / 180.0;
 
 // multiply this with a angle measure expressed in radians to get its equivalent in degrees
-// const double RAD_TO_DEG = 180 / PI;
+const double RAD_TO_DEG = 180.0 / PI;
 
 // eturns the absolute value of val
 int abs(int val);
