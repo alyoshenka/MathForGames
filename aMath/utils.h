@@ -3,6 +3,8 @@
 // #include "stdarg.h"
 #include "vec2.h"
 
+int sum(int a, int b);
+
 // returns smaller of two values
 int min(int a, int b);
 // int min(int a, ...); // does not work correctly

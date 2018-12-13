@@ -1,13 +1,28 @@
 #include <iostream>
 #include <cassert>
-#include "raylib.h"
-#include "utils.h"
 #include <string>
+
+#include "raylib.h"
+
+#include "utils.h"
 #include "vec2.h"
+#include "vec3.h"
 #include "ball.h"
 #include "enem.h"
 #include "player.h"
 #include "myCircle.h"
+
+// #define ENABLE_HALT_ON_FAILURE 1
+#include "helper.h"
+
+// macros
+#define minMacro(a, b) ((a) < (b) ? (a) : (b))
+#define sumMacro(a, b) (a + b)
+
+// catch2
+// #define CATCH_CONFIG_MAIN
+// #include "catch.hpp"
+// no clue how to use yet
 
 // typedef vec2 Vector2;
 
@@ -15,6 +30,8 @@
 // fix macros
 // fix rotate
 // fix pi
+// organize main
+// where is catch?
 
 int main() {
 	/*
@@ -152,6 +169,8 @@ int main() {
 
 	*/
 
+	/*
+
 	InitWindow(800, 800, "sincos");
 	SetTargetFPS(60);
 
@@ -159,9 +178,10 @@ int main() {
 	float y = 600.0f;
 	float wave = 0.0f;
 
-	vec2 pts[500];
-	for (int i = 0; i < 500; i++) {
-		pts[i] = { i, y };
+	const int num = 400;
+	vec2 pts[num];
+	for (int i = 0; i < num; i++) {
+		pts[i] = { (float)i * 2, (float)y };
 		wave += 0.1; // this stuff right here
 		y += sin(wave);
 	}
@@ -178,7 +198,7 @@ int main() {
 
 		DrawText(std::to_string(c.rad).c_str(), 10, 10, 20, BLACK);
 
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < num; i++) {
 			DrawCircle(pts[i].x, pts[i].y, 1, PURPLE);
 		}
 
@@ -200,7 +220,32 @@ int main() {
 	// std::cout << vec2(sqrt(2), sqrt(2)).angleBetween(vec2(0, 1)) << std::endl;
 	// std::cout << vec2(0, 1).angleBetween(vec2(1, 1)) << std::endl;
 
-	// system("pause");
+	*/
+
+	aassert("true is true", true);
+	aassert("the opposite of false is true", !false);
+	aassert("1+1=2", 1 + 1 == 2);
+	aassert("1+2=4", 1 + 2 == 4);
+
+	aassert("sum I", 3, sum(1, 2));
+	aassert("sum II", 5, sum(2, 3));
+	aassert("min", 3, min(3, 7));
+	aassert("max", 7, max(3, 7));
+	// pass in this impl
+	aassert("clamp", 5, clamp(5, 3, 7)); // clamp(val, lowerBound, upperBound)
+
+	vec3 a = { 2, 2, 2 };
+	vec3 b = { 1, 1, 1 };
+	vec3 diff = a - b;
+
+	aassert("diff x", 1.0f, diff.x, 0.0001f);
+	aassert("diff y", 1.0f, diff.y, 0.0001f);
+	aassert("diff z", 1.0f, diff.z, 0.0001f);
+
+	aassert("minMacro", 1, minMacro(1, 4)); // pass
+	aassert("sumMacro", 5, sumMacro(1, 3)); // fail
+
+	system("pause");
 
 	return 0;
 }

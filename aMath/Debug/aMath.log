@@ -7,4 +7,4 @@ c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(245): warning C4244: '
 c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(249): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
 c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(250): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
   Generating Code...
-  aMath.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\aMath.lib
+  aMath.vcxproj -> C:\Users\S189076\source\repos\MathForGames\Debug\aMath.lib

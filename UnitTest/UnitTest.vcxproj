@@ -140,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="ball.h" />
     <ClInclude Include="enem.h" />
+    <ClInclude Include="helper.h" />
     <ClInclude Include="myCircle.h" />
     <ClInclude Include="player.h" />
   </ItemGroup>
