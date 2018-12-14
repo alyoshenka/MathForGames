@@ -115,11 +115,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="curves.h" />
+    <ClInclude Include="lerp.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="lerp.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />

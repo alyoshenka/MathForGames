@@ -11,6 +11,9 @@
 #include "enem.h"
 #include "player.h"
 #include "myCircle.h"
+#include "lerp.h"
+#include "particle.h"
+#include "curves.h"
 
 // #define ENABLE_HALT_ON_FAILURE 1
 #include "helper.h"
@@ -23,6 +26,7 @@
 // #define CATCH_CONFIG_MAIN
 // #include "catch.hpp"
 // no clue how to use yet
+// easeInOutBack???
 
 // typedef vec2 Vector2;
 
@@ -86,7 +90,7 @@ int main() {
 
 	ball b;
 	vec2 distFromPlayer;
-	
+
 	while (!WindowShouldClose()) {
 
 		// bounds checking for big long line
@@ -113,9 +117,9 @@ int main() {
 			c = txt[i];
 			c += "\0";
 
-			dist = std::to_string(b.pos.x - distFromPlayer.x) + 
+			dist = std::to_string(b.pos.x - distFromPlayer.x) +
 				", " + std::to_string(b.pos.y - distFromPlayer.y);
-			
+
 			// DrawText(c.c_str(), pos.x, pos.y, 5, RAYWHITE);
 			b.draw();
 			DrawCircle(distFromPlayer.x, distFromPlayer.y, 5, BLUE);
@@ -144,7 +148,7 @@ int main() {
 	*/
 
 	/*
-	
+
 	InitWindow(500, 600, "Vectors");
 	SetTargetFPS(60);
 
@@ -153,7 +157,7 @@ int main() {
 
 	while (!WindowShouldClose()) {
 
- 		e.update();
+		e.update();
 		p.update();
 
 		BeginDrawing();
@@ -189,7 +193,7 @@ int main() {
 	while (!WindowShouldClose()) {
 
 		// c.update();
-		
+
 
 		BeginDrawing();
 		ClearBackground(WHITE);
@@ -222,6 +226,7 @@ int main() {
 
 	*/
 
+	/*
 	aassert("true is true", true);
 	aassert("the opposite of false is true", !false);
 	aassert("1+1=2", 1 + 1 == 2);
@@ -245,7 +250,216 @@ int main() {
 	aassert("minMacro", 1, minMacro(1, 4)); // pass
 	aassert("sumMacro", 5, sumMacro(1, 3)); // fail
 
-	system("pause");
+	*/
+
+	/*
+	InitWindow(700, 800, "lerp");
+	SetTargetFPS(60);
+
+	// particle spawner and ui transitions not done
+
+	float scale = 0.0f;
+	Rectangle rec1 = { 0, 0, 10, 10 };
+
+	vec2 pos1 = { 300, 100 };
+	vec2 pos2 = { 300, 200 };
+	vec2 dest1 = { 600, 100 };
+	vec2 dest2 = { 600, 200 };
+
+	vec2 waypoints[10];
+	for (int i = 0; i < 10; i++)
+	{
+		waypoints[i] = { (float)GetRandomValue(10, 290), (float)GetRandomValue(10, 290) };
+	}
+	int carryOver = 0;
+	int curIdx = 0;
+
+	float enemyCurrentHealth = 250.0f;
+	float enemyMaxHealth = 250.0f;
+	Rectangle enemyHealthBar = { 50, 700, 600, 50 };
+	int hitDir = -1;
+
+	Texture2D testParticle = LoadTexture("fish.png");
+	Color particleR = RED; // r = red
+	Color particleG = GRAY; // g = gray
+	Color particleC = RED; // c = current
+	float colScale = 0.0f;
+	int colDir = 1;
+
+	particle guy1;
+	guy1.pos = { 550, 450 };
+
+	while (!WindowShouldClose())
+	{
+		scale += GetFrameTime() / 10;
+		// pos1 = lerp1(pos1, dest1, scale);
+		pos1 = easeInSine(scale, pos1, dest1 - pos1, 2.0f); // t = elapsed time
+		// pos1.x = -easeInOutBack(scale, pos1.x, 600, 2.0f);
+		pos2 = lerp2(pos2, dest2, scale);
+
+		// carryOver++;
+		if (scale > 1.0f)
+		{
+			scale = 0.0f;
+			// carryOver = 0;
+			curIdx++;
+		}
+		int nextIdx = curIdx + 1;
+		if (nextIdx > 9)
+		{
+			nextIdx = 0;
+		}
+		if (curIdx > 9)
+		{
+			curIdx = 0;
+		}
+
+		if (enemyCurrentHealth <= 0 || enemyCurrentHealth >= enemyMaxHealth)
+		{
+			hitDir *= -1;
+		}
+		enemyCurrentHealth += hitDir * GetFrameTime() * 50;
+
+		if (colScale >= 1 || colScale <= 0){
+			colDir *= -1;
+		}
+
+		colScale += colDir * GetFrameTime() / 2;
+		particleC.r = lerp2(particleR.r, particleG.r, colScale);
+		particleC.g = lerp2(particleR.g, particleG.g, colScale);
+		particleC.b = lerp2(particleR.b, particleG.b, colScale);
+
+		guy1.update();
+
+		BeginDrawing();
+
+		ClearBackground(WHITE);
+
+		DrawRectangle(pos1.x, pos1.y, rec1.width, rec1.height, BLUE);
+		DrawRectangle(pos2.x, pos2.y, rec1.width, rec1.height, BLUE);
+
+		vec2 temp = lerp2(waypoints[curIdx], waypoints[nextIdx], scale);
+		DrawRectangle(temp.x, temp.y, 10, 10, PURPLE);
+
+		for (int i = 0; i < 10; i++)
+		{
+			DrawRectangle(waypoints[i].x, waypoints[i].y, 3, 3, BLACK);
+			DrawText(std::to_string(i+1).c_str(), waypoints[i].x + 5, waypoints[i].y + 5, 5, BLACK);
+		}
+
+		DrawRectangleRec(enemyHealthBar, BLACK);
+		int newWidth = lerp2(0.0f, enemyHealthBar.width - 10, enemyCurrentHealth / enemyMaxHealth);
+		DrawRectangle(enemyHealthBar.x + 5, enemyHealthBar.y + 5, newWidth, enemyHealthBar.height - 10, GREEN);
+		std::string s = std::to_string((int)enemyCurrentHealth) + " / " + std::to_string((int)enemyMaxHealth);
+		DrawText(s.c_str(), 50, 670, 20, BLACK);
+
+		DrawTextureEx(testParticle, { 250, 350 }, 0.0f, 3.0f, particleC);
+
+		guy1.draw();
+
+		EndDrawing();
+	}
+
+	UnloadTexture(testParticle);
+	CloseWindow();
+
+	*/
+
+	InitWindow(700, 700, "curves and splines");
+	SetTargetFPS(60);
+
+	// guyAngle
+
+	vec2 pts[10];
+	int rad = 5;
+	for (int i = 0; i < 10; i++)
+	{
+		pts[i].x = cos(360 / 10 * i * DEG_TO_RAD) * 200 + GetScreenWidth() / 2;
+		pts[i].y = sin(360 / 10 * i * DEG_TO_RAD) * 200 + GetScreenHeight() / 2;
+	}
+	float cur = 0.0f;
+	int curMod = 1;
+
+	vec2 p1 = { 100, 100 };
+	vec2 p2 = { 100, 600 };
+	vec2 p3 = { 600, 600 };
+
+	vec2 guyPos = p1;
+	float guyT = 0.0f;
+	int guyDir = 1;
+	Texture2D guySprite = LoadTexture("fish.png");
+	float guyAngle = 0.0f;
+
+	while (!WindowShouldClose())
+	{
+		if (cur <= 0 || cur >= 1) {
+			curMod *= -1;
+		}
+		cur += GetFrameTime() * curMod / 2;
+		if (cur < 1) 
+		{
+			// cur += GetFrameTime() * curMod / 2;
+		}
+				
+		// check collision
+		for (int i = 0; i < 10; i++)
+		{
+			// move pnt
+			if (IsMouseButtonDown(0) && CheckCollisionPointCircle(GetMousePosition(), pts[i], rad)) {
+				pts[i] = GetMousePosition();
+			}
+		}
+
+		float prevGuyT = guyT;
+		if (guyT > 1 || guyT < 0)
+		{
+			guyDir *= -1;
+		}
+		guyT += GetFrameTime() * guyDir / 5;
+		guyPos = quadraticBezier(p1, p2, p3, guyT);
+		// guyAngle = quadraticBezier(p1, p2, p1, guyT - GetFrameTime()).angleBetween(quadraticBezier(p1, p2, p1, guyT + GetFrameTime()));
+		
+		/*float x = quadraticBezier(p1.x, p2.x, p3.x, guyT);
+		float y = quadraticBezier(p1.y, p2.y, p3.y, guyT);
+		guyAngle = atan(y / x);*/
+
+		BeginDrawing();
+
+		ClearBackground(WHITE);
+
+		for (int i = 0; i < 10; i++) 
+		{
+			DrawCircleV(pts[i], rad, BLACK);
+			DrawText(std::to_string(i+1).c_str(), pts[i].x+5, pts[i].y+5, 5, BLACK);
+
+			for (float j = 0; j < cur; j += 0.02)
+			{
+				int cur = i;
+				int next = i + 1;
+				int prev = i - 1;
+				if (next > 9) {
+					next = 0;
+				}
+				if (prev < 0) {
+					prev = 9;
+				}
+
+				DrawPixelV(quadraticBezier(pts[prev], pts[cur], pts[next], j), BLACK);
+			}
+		}
+
+		DrawTextureEx(guySprite, guyPos, guyAngle, 1.0f, WHITE);
+		DrawCircleV(p1, 3, GREEN);
+		DrawCircleV(p2, 3, GREEN);
+		DrawCircleV(p3, 3, GREEN);
+
+		EndDrawing();
+	}
+
+	UnloadTexture(guySprite);
+	CloseWindow();
+
+	// system("pause");
 
 	return 0;
 }

@@ -24,6 +24,12 @@
     <ClInclude Include="vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lerp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="curves.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils.cpp">
@@ -33,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vec3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lerp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
