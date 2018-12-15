@@ -1,9 +1,13 @@
-﻿  main.cpp
-c:\users\s189076\source\repos\mathforgames\unittest\enem.h(5): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(375): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(376): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(406): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(430): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(431): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(433): warning C4305: '+=': truncation from 'double' to 'float'
+﻿  particle.cpp
+c:\users\s189076\source\repos\mathforgames\unittest\particle.cpp(19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\s189076\source\repos\mathforgames\unittest\particle.cpp(19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\lerp.h(15): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+  c:\users\s189076\source\repos\mathforgames\unittest\particle.cpp(35): note: see reference to function template instantiation 'T lerp2<int>(const T &,const T &,float)' being compiled
+          with
+          [
+              T=int
+          ]
+  particleSpawner.cpp
+c:\users\s189076\source\repos\mathforgames\unittest\particlespawner.cpp(47): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
   UnitTest.vcxproj -> C:\Users\S189076\source\repos\MathForGames\Debug\UnitTest.exe

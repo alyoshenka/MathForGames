@@ -117,15 +117,18 @@
   <ItemGroup>
     <ClInclude Include="curves.h" />
     <ClInclude Include="lerp.h" />
+    <ClInclude Include="random.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
+    <ClInclude Include="vec4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lerp.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />
+    <ClCompile Include="vec4.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

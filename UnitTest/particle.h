@@ -2,12 +2,14 @@
 #include "raylib.h"
 #include "lerp.h"
 #include "math.h"
+#include "vec2.h"
 #include <string>
 
 class particle
 {
 public:
-	Vector2 pos;
+	vec2 pos;
+	vec2 movement;
 	Texture2D sprite;
 	Color c;
 	Color curC; // current color
@@ -20,5 +22,6 @@ public:
 
 	void update();
 	void draw();
+	void reset();
 };
 

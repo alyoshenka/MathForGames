@@ -5,17 +5,18 @@
 particle::particle()
 {
 	pos = { (float)GetRandomValue(0, GetScreenWidth()), (float)GetRandomValue(0, GetScreenHeight()) };
+	movement = { 0.0f, 0.0f };
 	sprite = LoadTexture("knight.png");
 	c = WHITE;
 	curC = c;
-	lifetime = 5.0f;
+	lifetime = 2.0f;
 	age = 0.0f;
 }
 
 particle::particle(float minLifetime, float maxLifetime) : particle()
 {
 	// because it only does floats
-	lifetime = GetRandomValue(minLifetime * pow(10, 38), maxLifetime * pow(10, 38)) / pow(10, 38);;
+	lifetime = GetRandomValue(minLifetime * pow(10, 38), maxLifetime * pow(10, 38)) / pow(10, 38);
 }
 
 
@@ -40,7 +41,7 @@ void particle::update()
 void particle::draw()
 {
 	// go away after 5 seconds
-	if (age < lifetime + 5)
+	/*if (age < lifetime + 5)
 	{
 		DrawTextureEx(sprite, pos, 0, 2, curC);
 		if (age < lifetime)
@@ -48,5 +49,11 @@ void particle::draw()
 			std::string s = std::to_string(age) + " / " + std::to_string(lifetime);
 			DrawText(s.c_str(), pos.x, pos.y, 5, BLACK);
 		}
-	}
+	}*/
+	DrawCircleV(pos, 5, curC);
+}
+
+void particle::reset()
+{
+	age = 0.0f;
 }

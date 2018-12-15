@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "vec2.h"
 #include "vec3.h"
+#include "vec4.h"
 #include "ball.h"
 #include "enem.h"
 #include "player.h"
@@ -14,6 +15,10 @@
 #include "lerp.h"
 #include "particle.h"
 #include "curves.h"
+#include "random.h"
+
+#include "test.h"
+#include "particleSpawner.h"
 
 // #define ENABLE_HALT_ON_FAILURE 1
 #include "helper.h"
@@ -27,6 +32,7 @@
 // #include "catch.hpp"
 // no clue how to use yet
 // easeInOutBack???
+// to_string(T) in random
 
 // typedef vec2 Vector2;
 
@@ -365,6 +371,7 @@ int main() {
 
 	*/
 
+	/*
 	InitWindow(700, 700, "curves and splines");
 	SetTargetFPS(60);
 
@@ -417,11 +424,9 @@ int main() {
 		}
 		guyT += GetFrameTime() * guyDir / 5;
 		guyPos = quadraticBezier(p1, p2, p3, guyT);
-		// guyAngle = quadraticBezier(p1, p2, p1, guyT - GetFrameTime()).angleBetween(quadraticBezier(p1, p2, p1, guyT + GetFrameTime()));
-		
-		/*float x = quadraticBezier(p1.x, p2.x, p3.x, guyT);
-		float y = quadraticBezier(p1.y, p2.y, p3.y, guyT);
-		guyAngle = atan(y / x);*/
+		// angle between starting and ending vectors, multiplied by current scale between,
+		// converted to degrees, flipped negatively, scaled to half, rotated for correct direction
+		guyAngle = vec2(-1, 0).angleBetween(vec2(1, 0)) * guyT * RAD_TO_DEG / -2 + 90;
 
 		BeginDrawing();
 
@@ -458,8 +463,262 @@ int main() {
 
 	UnloadTexture(guySprite);
 	CloseWindow();
+	*/
+
+	/*
+	InitWindow(700, 700, "rand");
+
+	randGen<float> r;
+	r.seedRand(123456);
+
+	bool notYet = true;
+
+	const int num = 100; // 100 shows a good spread
+	int vals[num];
+	int vals2[num];
+	for (int i = 0; i < num; i++) {
+		vals[i] = r.rand(100, 600);
+		vals2[i] = lerp1(100, 600, r.randDecimal(0.000, 1.000));
+
+		// check for repeat
+		for (int j = 0; j < i; j++) {
+			if (vals[i] == vals[j] && notYet)
+			{
+				notYet = false;
+				// idx where they repeat
+				std::cout << i << std::endl;
+				// std::abort();
+			}
+		}
+	}
+	int idx = 0;
+	float elapsedTime = 0.0f;
+	float delay = 0.2f;
+
+	vec2 enemPos = { 0, 0 };
+	vec2 enemStart = enemPos;
+	bool atDest = false;
+	vec2 enemDest = enemPos;
+	float enemDist = 1.0f;
+
+	vec2 enem2Pos = { 350, 350 };
+	vec2 enem2Move = { 0, 0 };
+	int enem2MaxDelta = 20;
+	float enem2Elapsed = 0.0f;
+	float enem2Delay = 1.0f;
+
+	test myGuy;
+
+	while (!WindowShouldClose())
+	{
+		elapsedTime += GetFrameTime();
+		if (elapsedTime >= delay && idx < num - 1) {
+			elapsedTime = 0;
+			idx++;
+		}
+
+		enemDist += GetFrameTime() / 2;
+		if (enemDist > 1) {
+			enemDist = 0.0f;
+			enemStart = enemDest;
+			enemDest = vec2(r.rand(100, 600), r.rand(100, 600));
+		}
+		enemPos = lerp1(enemStart, enemDest, enemDist);
+		if (enemPos == enemDest) {
+			// enemDest = vec2(r.rand(100, 600), r.rand(100, 600));
+		}
+
+		enem2Elapsed += GetFrameTime();
+		if (enem2Elapsed >= enem2Delay) {
+			enem2Elapsed = 0;
+			// enem2
+			enem2Move.x += r.rand(-1 * enem2MaxDelta, enem2MaxDelta);
+			enem2Move.y += r.rand(-1 * enem2MaxDelta, enem2MaxDelta);
+		}
+		
+
+		enem2Pos += enem2Move.normalize() * GetFrameTime() * 100.0f;;
+		// wrap
+		if (enem2Pos.x > GetScreenWidth() + 5) {
+			enem2Pos.x = -5;
+		}
+		if (enem2Pos.x < -5) {
+			enem2Pos.x = GetScreenWidth() + 5;
+		}
+		if (enem2Pos.y > GetScreenHeight() + 5) {
+			enem2Pos.y = -5;
+		}
+		if (enem2Pos.y < -5) {
+			enem2Pos.y = GetScreenHeight() + 5;
+		}
+
+		myGuy.update();
+
+		BeginDrawing();
+
+		ClearBackground(WHITE);
+		for (int i = 0; i < idx; i++)
+		{
+			DrawCircle(vals[i], 100, 2, BLACK);
+			DrawCircle(vals2[i], 200, 2, BLACK);
+		}
+		DrawText(std::to_string(idx + 1).c_str(), 20, 20, 5, BLACK);
+		// dot line bounds
+		DrawCircle(100, 100, 3, RED);
+		DrawCircle(100, 200, 3, RED);
+		DrawCircle(600, 100, 3, RED);
+		DrawCircle(600, 200, 3, RED);
+		// titles
+		DrawText("rand", 50, 100, 5, BLACK);
+		DrawText("dec rand", 50, 200, 5, BLACK);
+
+		DrawRectangleV(enemDest, {5, 5}, RED);
+		DrawCircleV(enemPos, 5, GREEN);
+		DrawText("rand pnt gen", enemDest.x + 5, enemDest.y + 5, 5, BLACK);
+
+		DrawCircleV(enem2Pos, 5, BLUE);
+
+		std::string seedS = "Seed: " + std::to_string(r.getSeed());
+		DrawText(seedS.c_str(), 600, 10, 10, BLACK);
+
+		myGuy.draw();
+
+		EndDrawing();
+	}
+
+	CloseWindow();
+
+	*/
 
 	// system("pause");
+
+	/*
+	// vector addition
+	vec2 v2a(13.5f, -48.23f), v2b(5, 3.99f), v2c;
+	v2c = v2a + v2b;
+	vec3 v3a(13.5f, -48.23f, 862), v3b(5, 3.99f, -12), v3c;
+	v3c = v3a + v3b;
+	vec4 v4a(13.5f, -48.23f, 862, 0), v4b(5, 3.99f, -12, 1), v4c;
+	v4c = v4a + v4b;
+
+	assert(v2c == vec2(18.5f, -44.24f));
+	assert(v3c == vec3(18.5f, -44.24f, 850));
+	assert(v4c == vec4(18.5f, -44.24f, 850, 1));
+
+	// vector subtraction
+	v2a = vec2(13.5f, -48.23f);
+	v2b = vec2(5, 3.99f);
+	v2c = v2a - v2b;
+	v3a = vec3(13.5f, -48.23f, 862);
+	v3b = vec3(5, 3.99f, -12);
+	v3c = v3a - v3b;
+	v4a = vec4(13.5f, -48.23f, 862, 0);
+	v4b = vec4(5, 3.99f, -12, 1);
+	v4c = v4a - v4b;
+
+	assert(v2c == vec2(8.5f, -52.22f));
+	assert(v3c == vec3(8.5f, -52.22f, 874));
+	assert(v4c == vec4(8.5f, -52.22f, 874, -1));
+
+	// vector post-scale
+	v2a = vec2(13.5f, -48.23f);
+	v2c = v2a * 2.482f;
+	v3a = vec3(13.5f, -48.23f, 862);
+	v3c = v3a * 0.256f;
+	v4a = vec4(13.5f, -48.23f, 862, 0);
+	v4c = v4a * 4.89f;
+
+	assert(v2c == vec2(33.5069999695f, -119.706863403f));
+	assert(v3c == vec3(3.45600008965f, -12.3468809128f, 220.672012329f));
+	assert(v4c == vec4(66.0149993896f, -235.844696045f, 4215.1796875f, 0));
+
+	// vector pre-scale
+	v2a = vec2(13.5f, -48.23f);
+	v2c = 2.482f * v2a;
+	v3a = vec3(13.5f, -48.23f, 862);
+	v3c = 0.256f * v3a;
+	v4a = vec4(13.5f, -48.23f, 862, 0);
+	v4c = 4.89f * v4a;
+
+	assert(v2c == vec2(33.5069999695f, -119.706863403f));
+	assert(v3c == vec3(3.45600008965f, -12.3468809128f, 220.672012329f));
+	assert(v4c == vec4(66.0149993896f, -235.844696045f, 4215.1796875f, 0));
+
+	// vector dot product
+	v2a = vec2(13.5f, -48.23f);
+	v2b = vec2(5, 3.99f);
+	float dot2 = v2a.dot(v2b);
+	v3a = vec3(13.5f, -48.23f, 862);
+	v3b = vec3(5, 3.99f, -12);
+	float dot3 = v3a.dot(v3b);
+	v4a = vec4(13.5f, -48.23f, 862, 0);
+	v4b = vec4(5, 3.99f, -12, 1);
+	float dot4 = v4a.dot(v4b);
+
+	assert(dot2 == -124.937698364f);
+	assert(dot3 == -10468.9375f);
+	assert(dot4 == -10468.9375f);
+
+	// vector cross product
+	v3a = vec3(13.5f, -48.23f, 862);
+	v3b = vec3(5, 3.99f, -12);
+	v3c = v3a.cross(v3b);
+	v4a = vec4(13.5f, -48.23f, 862, 0);
+	v4b = vec4(5, 3.99f, -12, 1);
+	v4c = v4a.cross(v4b);
+
+	assert(v3c == vec3(-2860.62011719f, 4472.00000000f, 295.01498413f));
+	assert(v4c == vec4(-2860.62011719f, 4472.00000000f, 295.01498413f, 0));
+
+	// vector magnitude
+	v2a = vec2(13.5f, -48.23f);
+	float mag2 = v2a.magnitude();
+	v3a = vec3(13.5f, -48.23f, 862);
+	float mag3 = v3a.magnitude();
+	v4a = vec4(13.5f, -48.23f, 862, 0);
+	float mag4 = v4a.magnitude();
+
+	assert(mag2 == 50.0837593079f);
+	assert(mag3 == 863.453735352f);
+	assert(mag4 == 863.453735352f);
+
+	// vector normalize
+	v2a = vec2(-13.5f, -48.23f);
+	v2a.normalize();
+	v3a = vec3(13.5f, -48.23f, 862);
+	v3a.normalize();
+	v4a = vec4(243, -48.23f, 862, 0);
+	v4a.normalize();
+	*/
+
+	// ????
+	// close but no cigar
+	// assert(v2a == vec2(-0.269548f, -0.962987f));
+	// assert(v3a == vec3(0.0156349f, -0.0558571f, 0.998316f));
+	// assert(v4a == vec4(0.270935f, -0.0537745f, 0.961094f, 0));
+
+	InitWindow(800, 800, "particle effect");
+	SetTargetFPS(60);
+
+	particleSpawner ps;
+
+	while (!WindowShouldClose()) {
+
+		ps.update();
+
+		BeginDrawing();
+		ClearBackground(GRAY);
+
+		ps.draw();
+
+		EndDrawing();
+	}
+
+	CloseWindow();
+
+
+	// no matrix (yet)
+
 
 	return 0;
 }

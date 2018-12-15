@@ -15,9 +15,6 @@ vec2::vec2(float _x, float _y)
 float vec2::magnitude() const
 {
 	float temp = sqrt(x * x + y * y);
-	if (temp == 0) {
-		return 0;
-	}
 	return temp;
 }
 

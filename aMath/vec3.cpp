@@ -1,7 +1,5 @@
 #include "vec3.h"
 
-
-
 vec3::vec3()
 {
 	x = 0.0f;
@@ -15,7 +13,6 @@ vec3::vec3(float _x, float _y, float _z)
 	y = _y;
 	z = _z;
 }
-
 
 vec3::~vec3()
 {
@@ -75,7 +72,7 @@ vec3 vec3::operator+(const vec3 & rhs) const
 	vec3 temp(x, y, z);
 	temp.x += rhs.x;
 	temp.y += rhs.y;
-	temp.z = rhs.z;
+	temp.z += rhs.z;
 	return temp;
 }
 

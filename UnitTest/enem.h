@@ -2,7 +2,7 @@
 #include "raylib.h"
 #include "vec2.h"
 
-#include <iostream>;
+#include <iostream>
 
 class enem
 {
