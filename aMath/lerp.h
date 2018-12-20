@@ -26,7 +26,8 @@ T lerp2(const T& a, const T& b, float t)
  template <typename T>
  T easeInSine(float t, const T& b, const T& c, float d)
  {
-	 return b + c - c * cosf(t / d * (PI / 2));
+	 // return b + c - c * cosf(t / d * (PI / 2));
+	 return b;
  }
 
  // elapsed time, begin, change (delta), duration

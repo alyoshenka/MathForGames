@@ -33,6 +33,7 @@
 // no clue how to use yet
 // easeInOutBack???
 // to_string(T) in random
+// easeInSine
 
 // typedef vec2 Vector2;
 
@@ -697,6 +698,7 @@ int main() {
 	// assert(v3a == vec3(0.0156349f, -0.0558571f, 0.998316f));
 	// assert(v4a == vec4(0.270935f, -0.0537745f, 0.961094f, 0));
 
+	/*
 	InitWindow(800, 800, "particle effect");
 	SetTargetFPS(60);
 
@@ -715,7 +717,68 @@ int main() {
 	}
 
 	CloseWindow();
+	*/
 
+	InitWindow(500, 500, "fov");
+	SetTargetFPS(60);
+
+	vec2 enemPos = { 250, 250 };
+	float enemSpeed = 150.0f;
+	float enemRot = 0.0f; // deg, rot cw
+	float enemRotSpeed = 50.0f;
+	float fov = 60.0f; // deg
+	int fovLen = 100; // i could draw arc with bezier curve
+
+	vec2 orig = { 1, 0 };
+
+	float a = orig.angleBetween(vec2(-1, 0));
+
+	while (!WindowShouldClose()) {
+
+		// left
+		if (IsKeyDown(KEY_A))
+		{
+			enemRot -= enemRotSpeed * GetFrameTime();
+		}
+		// right
+		if (IsKeyDown(KEY_D))
+		{
+			enemRot += enemRotSpeed * GetFrameTime();
+		}
+		// forwards
+		if (IsKeyDown(KEY_W))
+		{
+			enemPos += orig.getRotated(enemRot) * enemSpeed * GetFrameTime();
+		}
+			
+
+		BeginDrawing();
+		ClearBackground(GRAY);
+
+		// enem
+		vec2 pl = orig.getRotated(fov / -2 + enemRot) * fovLen; // point left
+		vec2 pr = orig.getRotated(fov / 2 + enemRot) * fovLen; // point right
+		DrawLineV(enemPos, enemPos + pl, BLACK);
+		DrawLineV(enemPos, enemPos + pr, BLACK);
+		// so enem overlaps
+		DrawCircleV(enemPos, 10, BLUE);
+
+		// arc
+		vec2 offset = orig.getRotated(enemRot) * fovLen * 1.2; // math for correct scale?
+		vec2 prev = pl;
+		for(float i = 0; i < 1; i += 0.01f) 
+		{
+			vec2 next = quadraticBezier(pl, offset, pr, i);
+			DrawLineV(prev + enemPos, next + enemPos, BLACK);
+			prev = next;
+		}
+		// test
+		// DrawLineV(enemPos, orig * fovLen + enemPos, BLACK);
+
+		EndDrawing();
+	}
+
+	CloseWindow();
 
 	// no matrix (yet)
 

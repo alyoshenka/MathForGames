@@ -1,8 +1,15 @@
-﻿  vec2.cpp
-c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(68): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(241): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(242): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(246): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(247): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-  aMath.vcxproj -> C:\Users\S189076\source\repos\MathForGames\Debug\aMath.lib
+﻿  lerp.cpp
+  utils.cpp
+  vec2.cpp
+c:\users\griffin\desktop\school\mathforgames\amath\vec2.cpp(17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\griffin\desktop\school\mathforgames\amath\vec2.cpp(69): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\griffin\desktop\school\mathforgames\amath\vec2.cpp(185): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\griffin\desktop\school\mathforgames\amath\vec2.cpp(190): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\griffin\desktop\school\mathforgames\amath\vec2.cpp(198): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\griffin\desktop\school\mathforgames\amath\vec2.cpp(199): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+  vec3.cpp
+c:\users\griffin\desktop\school\mathforgames\amath\vec3.cpp(23): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  vec4.cpp
+c:\users\griffin\desktop\school\mathforgames\amath\vec4.cpp(25): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  aMath.vcxproj -> C:\Users\Griffin\Desktop\School\MathForGames\Debug\aMath.lib

@@ -1,13 +1,6 @@
-﻿  particle.cpp
-c:\users\s189076\source\repos\mathforgames\unittest\particle.cpp(19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\s189076\source\repos\mathforgames\unittest\particle.cpp(19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\lerp.h(15): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-  c:\users\s189076\source\repos\mathforgames\unittest\particle.cpp(35): note: see reference to function template instantiation 'T lerp2<int>(const T &,const T &,float)' being compiled
-          with
-          [
-              T=int
-          ]
-  particleSpawner.cpp
-c:\users\s189076\source\repos\mathforgames\unittest\particlespawner.cpp(47): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-  UnitTest.vcxproj -> C:\Users\S189076\source\repos\MathForGames\Debug\UnitTest.exe
+﻿  main.cpp
+c:\users\griffin\desktop\school\mathforgames\unittest\main.cpp(759): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\griffin\desktop\school\mathforgames\unittest\main.cpp(760): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\griffin\desktop\school\mathforgames\unittest\main.cpp(767): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
+c:\users\griffin\desktop\school\mathforgames\unittest\main.cpp(767): warning C4305: 'argument': truncation from 'double' to 'const float'
+  UnitTest.vcxproj -> C:\Users\Griffin\Desktop\School\MathForGames\Debug\UnitTest.exe
