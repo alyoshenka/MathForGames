@@ -4,13 +4,16 @@
 
 particleEffect::particleEffect()
 {
-	pos = { 0, 0 };
+	// pos = { 0, 0 };
+	pos = GetMousePosition();
 	speed = 100.0f;
 	age = 0.0f;
 	lifetime = 1.0f;
 	particleCount = 12;
 	particleSize = 3;
 	isAlive = true;
+	c = BLUE;
+	curC = c;
 
 	for (int i = 0; i < particleCount; i++) {
 		particles.push_back(pos);

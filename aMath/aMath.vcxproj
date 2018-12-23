@@ -117,7 +117,9 @@
   <ItemGroup>
     <ClInclude Include="curves.h" />
     <ClInclude Include="lerp.h" />
+    <ClInclude Include="mat3.h" />
     <ClInclude Include="random.h" />
+    <ClInclude Include="transform2d.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
@@ -125,6 +127,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lerp.cpp" />
+    <ClCompile Include="mat3.cpp" />
+    <ClCompile Include="transform2d.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />

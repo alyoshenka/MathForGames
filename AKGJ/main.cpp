@@ -1,5 +1,5 @@
-#include "raylib.h"
-// #include "gameState.h"
+ #include "raylib.h"
+ #include "gameState.h"
 
 int main() {
 	int w = 1000;
@@ -7,14 +7,14 @@ int main() {
 	InitWindow(w, h, "AKGJ");
 	SetTargetFPS(60);
 
-	// gameState gs = gameState::getInstance();
+	 gameState gs = gameState::getInstance();
 
 	while (!WindowShouldClose())
 	{
-		// gs.go();
-		BeginDrawing();
+		gs.go();
+		/*BeginDrawing();
 		ClearBackground(BLACK);
-		EndDrawing();
+		EndDrawing();*/
 
 	}
 

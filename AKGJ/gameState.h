@@ -12,6 +12,7 @@ enum State
 };
 
 // what are the potential drawbacks of this implementation?
+// THIS WAS A DUMB IDEA I SEE WHY NOW
 
 // this singleton class manages the use of
 // the current game state

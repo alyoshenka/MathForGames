@@ -14,10 +14,21 @@ void gameState::mainMenu()
 		state = InGame;
 	}
 
+	if (IsKeyPressed(KEY_ONE))
+	{
+		particleEffect temp;
+		// temp.pos = GetMousePosition();
+		pes.push_back(temp);
+	}
+
 	BeginDrawing();
 
 	// draw
 	ClearBackground(WHITE);
+	for (particleEffect pe : pes)
+	{
+		pe.draw();
+	}
 
 	EndDrawing();
 }
