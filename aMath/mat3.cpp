@@ -163,8 +163,8 @@ mat3 mat3::translation(const vec2 & vec)
 // rot in rad
 mat3 mat3::rotation(float rot)
 {
-	return mat3((float)cos(rot), (float)sin(rot), 0.0f
-				(-1.0f * sin(rot)), cos(rot), 0.0f,
+	return mat3((float)cos(rot), (float)sin(rot), 0.0f,
+				(-sin(rot)), cos(rot), 0.0f,
 				0.0f, 0.0f, 1.0f);
 }
 
