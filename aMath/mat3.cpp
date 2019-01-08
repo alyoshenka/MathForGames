@@ -89,7 +89,7 @@ bool mat3::operator==(const mat3 & rhs) const
 	bool test = false;
 	for (int i = 0; i < 9; i++)
 	{
-		if (m[i] == rhs.m[i])
+		if (m[i] - rhs.m[i] <= FLT_EPSILON * 100 && m[i] - rhs.m[i] >= -1 * FLT_EPSILON * 100)
 		{
 			test = true;
 		}
@@ -189,4 +189,37 @@ vec2 mat3::operator*(const vec2 & rhs) const
 	temp.x = rhs.x * m1 + rhs.x * m4;
 	temp.y = rhs.y * m2 + rhs.y * m5;
 	return temp;
+}
+
+mat3 mat3::setRotateX(float rot)
+{
+	m1 = 1;
+	m5 = (float)cos(rot);
+	m6 = (float)sin(rot);
+	m8 = (float)-sin(rot);
+	m9 = (float)cos(rot);
+
+	return *this;
+}
+
+mat3 mat3::setRotateY(float rot)
+{
+	m1 = cos(rot);
+	m3 = -sin(rot);
+	m5 = 1;
+	m7 = sin(rot);
+	m9 = cos(rot);
+
+	return *this;
+}
+
+mat3 mat3::setRotateZ(float rot)
+{
+	m1 = cos(rot);
+	m2 = sin(rot);
+	m4 = -sin(rot);
+	m5 = cos(rot);
+	m9 = 1;
+
+	return *this;
 }
