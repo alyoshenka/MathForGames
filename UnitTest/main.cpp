@@ -16,6 +16,7 @@
 #include "particle.h"
 #include "curves.h"
 #include "random.h"
+#include "transform2d.h"
 
 #include "test.h"
 #include "particleSpawner.h"
@@ -719,6 +720,7 @@ int main() {
 	CloseWindow();
 	*/
 
+	/*
 	InitWindow(500, 500, "fov");
 	SetTargetFPS(60);
 
@@ -777,6 +779,93 @@ int main() {
 
 		EndDrawing();
 	}
+
+	CloseWindow();
+	*/
+
+	// transform2d test
+	InitWindow(600, 400, "transform2d");
+
+	Texture2D guy = LoadTexture("ice_zombie.png");
+	transform2d guyT;
+	guyT.localPos = { 200, 200 };
+	// guyT.localRot = PI / 2;
+
+	Texture2D lilGuy = LoadTexture("goblin.png");
+	transform2d lilGuyT;
+	lilGuyT.setParent(&guyT);
+	lilGuyT.localPos = {50, 50};
+
+	guyT.addChild(&lilGuyT);
+
+	while (!WindowShouldClose())
+	{
+		if (IsKeyDown(KEY_LEFT))
+		{
+			if (IsKeyDown(KEY_ONE))
+			{
+				guyT.localRot -= 0.0005;
+			}
+			if (IsKeyDown(KEY_TWO))
+			{
+				lilGuyT.localRot -= 0.0005;
+			}
+		}
+		if (IsKeyDown(KEY_RIGHT))
+		{
+			if (IsKeyDown(KEY_ONE))
+			{
+				guyT.localRot += 0.0005;
+			}
+			if (IsKeyDown(KEY_TWO))
+			{
+				lilGuyT.localRot += 0.0005;
+			}
+		}
+
+		if (GetMouseWheelMove() > 0)
+		{
+			if (IsKeyDown(KEY_ONE))
+			{
+				guyT.localScale.x += 0.1f;
+				guyT.localScale.y += 0.1f;
+			}
+			if (IsKeyDown(KEY_TWO))
+			{
+				lilGuyT.localScale.x += 0.1f;
+				lilGuyT.localScale.y += 0.1f;
+			}
+		}
+		if (GetMouseWheelMove() < 0)
+		{
+			if (IsKeyDown(KEY_ONE))
+			{
+				guyT.localScale.x -= 0.1f;
+				guyT.localScale.y -= 0.1f;
+			}
+			if (IsKeyDown(KEY_TWO))
+			{
+				lilGuyT.localScale.x -= 0.1f;
+				lilGuyT.localScale.y -= 0.1f;
+			}
+		}
+
+		BeginDrawing();
+
+		ClearBackground(WHITE);
+
+		// draw in center
+		vec2 guyTP = { guyT.worldPosition().x - guy.width / 2,  guyT.worldPosition().y - guy.height / 2 };
+		vec2 lilGuyTP = { lilGuyT.worldPosition().x - lilGuy.width / 2,  lilGuyT.worldPosition().y - lilGuy.height / 2 };
+
+		DrawTextureEx(guy, guyTP, guyT.worldRotation() * RAD_TO_DEG, guyT.worldScale().x, WHITE);
+		DrawTextureEx(lilGuy, lilGuyTP, lilGuyT.worldRotation() * RAD_TO_DEG, lilGuyT.worldScale().x, WHITE); // SCALE
+
+		EndDrawing();
+	}
+
+	UnloadTexture(guy);
+	UnloadTexture(lilGuy);
 
 	CloseWindow();
 

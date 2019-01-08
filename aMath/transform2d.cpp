@@ -5,6 +5,8 @@ transform2d::transform2d()
 	localPos = { 0.0f, 0.0f };
 	localRot = 0.0f;
 	localScale = { 1.0f, 1.0f };
+
+	parent = nullptr;
 }
 
 void transform2d::translate(const vec2 & offset)
@@ -81,17 +83,52 @@ transform2d * transform2d::getTopParent() const
 
 vec2 transform2d::worldPosition() const
 {
-	return vec2(getWorldTRSMatrix().m1, getWorldTRSMatrix().m5);
+	transform2d * temp = parent;
+
+	if (parent == nullptr)
+	{
+		return localPos;
+	}
+
+	vec2 worldPos = { 0, 0 };
+
+	while (temp != nullptr)
+	{
+		worldPos.x += temp->localPos.x + localPos.x * cos(temp->localRot);
+		worldPos.y += temp->localPos.y + localPos.y * sin(temp->localRot);
+		temp = temp->parent;
+	}
+
+	return worldPos;
 }
 
 float transform2d::worldRotation() const
 {
-	
+	transform2d * temp = parent;
+	float worldRot = localRot;
+
+	while (temp != nullptr)
+	{
+		worldRot += temp->localRot;
+		temp = temp->parent;
+	}
+
+	return worldRot;
 }
 
 vec2 transform2d::worldScale() const
 {
+	transform2d * temp = parent;
+	vec2 worldScale = localScale;
 
+	while (temp != nullptr)
+	{
+		worldScale.x *= temp->localScale.x;
+		worldScale.y *= temp->localScale.y;
+		temp = temp->parent;
+	}
+
+	return worldScale;
 }
 
 void transform2d::setParent(transform2d * _parent)

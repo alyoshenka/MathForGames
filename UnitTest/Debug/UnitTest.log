@@ -1,6 +1,1 @@
-﻿  main.cpp
-c:\users\griffin\desktop\school\mathforgames\unittest\main.cpp(759): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\griffin\desktop\school\mathforgames\unittest\main.cpp(760): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\griffin\desktop\school\mathforgames\unittest\main.cpp(767): warning C4244: 'argument': conversion from 'int' to 'const float', possible loss of data
-c:\users\griffin\desktop\school\mathforgames\unittest\main.cpp(767): warning C4305: 'argument': truncation from 'double' to 'const float'
-  UnitTest.vcxproj -> C:\Users\Griffin\Desktop\School\MathForGames\Debug\UnitTest.exe
+﻿  UnitTest.vcxproj -> C:\Users\s189076\source\repos\MathForGames\Debug\UnitTest.exe

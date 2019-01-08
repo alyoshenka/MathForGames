@@ -27,8 +27,11 @@ struct transform2d
 	// top of heirarchy
 	transform2d * getTopParent() const;
 
+	// adds local positions
 	vec2 worldPosition() const;
+	// add up all local rotations
 	float worldRotation() const;
+	// multiply all local scales
 	vec2 worldScale() const;
 
 	void setParent(transform2d * _parent);

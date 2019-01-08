@@ -1,20 +1,2 @@
-﻿  lerp.cpp
-  mat3.cpp
-e:\programming\mathforgames\amath\mat3.cpp(167): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  transform2d.cpp
-e:\programming\mathforgames\amath\transform2d.cpp(10): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  utils.cpp
-  vec2.cpp
-e:\programming\mathforgames\amath\vec2.cpp(17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-e:\programming\mathforgames\amath\vec2.cpp(69): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-e:\programming\mathforgames\amath\vec2.cpp(185): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-e:\programming\mathforgames\amath\vec2.cpp(190): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-e:\programming\mathforgames\amath\vec2.cpp(198): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-e:\programming\mathforgames\amath\vec2.cpp(199): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
-  vec3.cpp
-e:\programming\mathforgames\amath\vec3.cpp(23): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  vec4.cpp
-e:\programming\mathforgames\amath\vec4.cpp(25): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-e:\programming\mathforgames\amath\mat3.cpp(61): warning C4172: returning address of local variable or temporary: temp
-  aMath.vcxproj -> E:\Programming\mathforgames\Debug\aMath.lib
+﻿  transform2d.cpp
+  aMath.vcxproj -> C:\Users\s189076\source\repos\MathForGames\Debug\aMath.lib
