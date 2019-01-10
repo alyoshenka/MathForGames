@@ -64,6 +64,7 @@ mat3 transform2d::getWorldTRSMatrix() const
 
 	while (tempParent != nullptr)
 	{
+		// multiply matrices to compound affects
 		base *= tempParent->getLocalTRSMatrix();
 		tempParent = tempParent->parent;
 	}
@@ -94,8 +95,9 @@ vec2 transform2d::worldPosition() const
 
 	while (temp != nullptr)
 	{
-		worldPos.x += temp->localPos.x + localPos.x * cos(temp->localRot);
-		worldPos.y += temp->localPos.y + localPos.y * sin(temp->localRot);
+		worldPos.x += temp->localPos.x + localPos.x * cos(temp->localRot) * temp->localScale.x;
+		// no idea why only y needs ratio
+		worldPos.y += temp->localPos.y + localPos.y * sin(temp->localRot) * temp->localScale.y / (localPos.y / localPos.x);
 		temp = temp->parent;
 	}
 

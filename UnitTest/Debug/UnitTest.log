@@ -1,1 +1,8 @@
-﻿  UnitTest.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\UnitTest.exe
+﻿  main.cpp
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(320): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(320): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(327): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(327): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(463): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(464): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  UnitTest.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\UnitTest.exe

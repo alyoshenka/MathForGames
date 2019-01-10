@@ -1,16 +1,2 @@
-﻿  mat4.cpp
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(83): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(84): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(85): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(86): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(95): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(96): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(97): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(98): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(107): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(108): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(109): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(110): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(142): warning C4172: returning address of local variable or temporary: temp
-c:\users\s189076\source\repos\mathforgames\amath\mat4.cpp(148): warning C4172: returning address of local variable or temporary: temp
+﻿  transform2d.cpp
   aMath.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\aMath.lib

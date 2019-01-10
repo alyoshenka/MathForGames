@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="coolThings.h" />
     <ClInclude Include="curves.h" />
     <ClInclude Include="lerp.h" />
     <ClInclude Include="mat3.h" />

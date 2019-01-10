@@ -25,18 +25,18 @@ bool aassert(const char * testName, bool expression) { // "Alexi Assert"
 template <typename T>
 bool aassert(const char * testName, T expected, T actual) {
 
+	std::cout << testName;
+
 	bool expression = expected == actual;
 	if (expression) {
-		std::cout << "[PASS] ";
+		std::cout << "[PASS] " << std::endl;
 	}
 	else {
-		std::cout << "[FAIL] ";
+		std::cout << "[FAIL] " << std::endl;
 		#ifdef ENABLE_HALT_ON_FAILURE
 				std::abort();
 		#endif
 	}
-
-	std::cout << testName << std::endl;
 
 	return expression;
 }
