@@ -82,9 +82,9 @@ struct mat3
 	vec2 operator*(const vec2 &rhs) const;
 
 	// rad
-	mat3 setRotateX(float rot);
+	static mat3 rotationX(float rot);
 	// rad
-	mat3 setRotateY(float rot);
+	static mat3 rotationY(float rot);
 	// rad
-	mat3 setRotateZ(float rot);
+	static mat3 rotationZ(float rot);
 };

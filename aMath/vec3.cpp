@@ -40,9 +40,10 @@ vec3 vec3::cross(const vec3 & rhs) const
 
 vec3 & vec3::normalize()
 {
-	x /= magnitude();
-	y /= magnitude();
-	z /= magnitude();
+	float mag = magnitude();
+	x /= mag;
+	y /= mag;
+	z /= mag;
 
 	return *this;
 }

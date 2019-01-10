@@ -47,10 +47,11 @@ vec4 vec4::cross(const vec4 & rhs) const
 
 vec4 & vec4::normalize()
 {
-	x /= magnitude();
-	y /= magnitude();
-	z /= magnitude();
-	w /= magnitude();
+	float mag = magnitude();
+	x /= mag;
+	y /= mag;
+	z /= mag;
+	w /= mag;
 
 	return *this;
 }
@@ -129,6 +130,16 @@ vec4 & vec4::operator+=(const vec4 & rhs)
 	y += rhs.y;
 	z += rhs.z;
 	w += rhs.w;
+
+	return *this;
+}
+
+vec4 & vec4::operator+=(const float & rhs)
+{
+	x += rhs;
+	y += rhs;
+	z += rhs;
+	w += rhs;
 
 	return *this;
 }

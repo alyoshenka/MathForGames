@@ -25,13 +25,15 @@ float vec2::dot(const vec2 & rhs) const
 
 vec2 & vec2::normalize()
 {
-	if (magnitude() == 0) {
+	float mag = magnitude();
+
+	if (mag <= 0) {
 		// do nothing
 		return *this;
 	}
 
-	x /= magnitude();
-	y /= magnitude();
+	x /= mag;
+	y /= mag;
 	
 	return *this;
 }
@@ -101,7 +103,7 @@ vec2 & vec2::operator-=(const vec2 & rhs)
 
 bool vec2::operator==(const vec2 rhs) const
 {
-	float val = FLT_EPSILON * 100; // on its own might be too small
+	float val = FLT_EPSILON * 1000; // on its own might be too small
 
 	vec2 dif;
 	dif.x = x - rhs.x;

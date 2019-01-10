@@ -66,7 +66,7 @@ mat3 mat3::operator*(const mat3 & rhs) const
 	mat3 temp;
 	// ultimately make loop
 	// [row][col]
-	temp.m1 = mm[0][0] * rhs.mm[0][0] + mm[0][1] * rhs.mm[1][0] + mm[0][2] * rhs.mm[2][0];
+	/*temp.m1 = mm[0][0] * rhs.mm[0][0] + mm[0][1] * rhs.mm[1][0] + mm[0][2] * rhs.mm[2][0];
 	temp.m2 = mm[1][0] * rhs.mm[0][0] + mm[1][1] * rhs.mm[1][0] + mm[1][2] * rhs.mm[2][0];
 	temp.m3 = mm[2][0] * rhs.mm[0][0] + mm[2][1] * rhs.mm[1][0] + mm[2][2] * rhs.mm[2][0];
 	temp.m4 = mm[0][0] * rhs.mm[0][1] + mm[0][1] * rhs.mm[1][1] + mm[0][2] * rhs.mm[2][1];
@@ -74,7 +74,30 @@ mat3 mat3::operator*(const mat3 & rhs) const
 	temp.m6 = mm[2][0] * rhs.mm[0][1] + mm[2][1] * rhs.mm[1][1] + mm[2][2] * rhs.mm[2][1];
 	temp.m7 = mm[0][0] * rhs.mm[0][2] + mm[0][1] * rhs.mm[1][2] + mm[0][2] * rhs.mm[2][2];
 	temp.m8 = mm[1][0] * rhs.mm[0][2] + mm[1][1] * rhs.mm[1][2] + mm[1][2] * rhs.mm[2][2];
-	temp.m9 = mm[2][0] * rhs.mm[0][2] + mm[2][1] * rhs.mm[1][2] + mm[2][2] * rhs.mm[2][2];
+	temp.m9 = mm[2][0] * rhs.mm[0][2] + mm[2][1] * rhs.mm[1][2] + mm[2][2] * rhs.mm[2][2];*/
+
+	mat3 transp = getTranspose();
+
+	/*temp.m1 = transp.xAxis.dot(rhs.xAxis);
+	temp.m2 = transp.yAxis.dot(rhs.xAxis);
+	temp.m3 = transp.zAxis.dot(rhs.xAxis);
+
+	temp.m4 = transp.xAxis.dot(rhs.yAxis);
+	temp.m5 = transp.yAxis.dot(rhs.yAxis);
+	temp.m6 = transp.zAxis.dot(rhs.yAxis);
+
+	temp.m7 = transp.xAxis.dot(rhs.zAxis);
+	temp.m8 = transp.yAxis.dot(rhs.zAxis);
+	temp.m9 = transp.zAxis.dot(rhs.zAxis);*/
+
+	for (int n = 0; n < 3; n++)
+	{
+		for (int m = 0; m < 3; m++)
+		{
+			temp.mm[m][n] = transp.axis[m].dot(rhs.axis[n]);
+		}
+	}
+
 	return temp;	
 }
 
@@ -176,9 +199,13 @@ mat3 mat3::scale(float xScale, float yScale)
 vec3 mat3::operator*(const vec3 & rhs) const
 {
 	vec3 temp;
-	temp.x = rhs.x * m1 + rhs.x * m4 + rhs.x * m7;
-	temp.y = rhs.y * m2 + rhs.y * m5 + rhs.y + m8;
-	temp.z = rhs.z * m3 + rhs.z * m6 + rhs.z * m9;
+	// allows us to use axis
+	mat3 transp = getTranspose();
+
+	temp.x = transp.xAxis.dot(rhs);
+	temp.y = transp.yAxis.dot(rhs);
+	temp.z = transp.zAxis.dot(rhs);
+
 	return temp;
 }
 
@@ -186,40 +213,44 @@ vec2 mat3::operator*(const vec2 & rhs) const
 {
 	// remember, mat3 used for 2d
 	vec2 temp;
-	temp.x = rhs.x * m1 + rhs.x * m4;
-	temp.y = rhs.y * m2 + rhs.y * m5;
+	temp.x = (*this * rhs).x;
+	temp.y = (*this * rhs).y;
+
 	return temp;
 }
 
-mat3 mat3::setRotateX(float rot)
+mat3 mat3::rotationX(float rot)
 {
-	m1 = 1;
-	m5 = (float)cos(rot);
-	m6 = (float)sin(rot);
-	m8 = (float)-sin(rot);
-	m9 = (float)cos(rot);
+	mat3 temp;
+	temp.m1 = 1.0f;
+	temp.m5 = (float)cos(rot);
+	temp.m6 = (float)sin(rot);
+	temp.m8 = (float)-sin(rot);
+	temp.m9 = (float)cos(rot);
 
-	return *this;
+	return temp;
 }
 
-mat3 mat3::setRotateY(float rot)
+mat3 mat3::rotationY(float rot)
 {
-	m1 = cos(rot);
-	m3 = -sin(rot);
-	m5 = 1;
-	m7 = sin(rot);
-	m9 = cos(rot);
+	mat3 temp;
+	temp.m1 = cos(rot);
+	temp.m3 = -sin(rot);
+	temp.m5 = 1.0f;
+	temp.m7 = sin(rot);
+	temp.m9 = cos(rot);
 
-	return *this;
+	return temp;
 }
 
-mat3 mat3::setRotateZ(float rot)
+mat3 mat3::rotationZ(float rot)
 {
-	m1 = cos(rot);
-	m2 = sin(rot);
-	m4 = -sin(rot);
-	m5 = cos(rot);
-	m9 = 1;
+	mat3 temp;
+	temp.m1 = cos(rot);
+	temp.m2 = sin(rot);
+	temp.m4 = -sin(rot);
+	temp.m5 = cos(rot);
+	temp.m9 = 1.0f;
 
-	return *this;
+	return temp;
 }

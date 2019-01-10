@@ -1,4 +1,1 @@
-﻿  main.cpp
-c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(794): warning C4002: too many actual parameters for macro 'assert'
-c:\users\s189076\source\repos\mathforgames\unittest\main.cpp(795): warning C4002: too many actual parameters for macro 'assert'
-  UnitTest.vcxproj -> C:\Users\s189076\source\repos\MathForGames\Debug\UnitTest.exe
+﻿  UnitTest.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\UnitTest.exe

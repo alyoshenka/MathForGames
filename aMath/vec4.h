@@ -28,6 +28,7 @@ public:
 	vec4 operator/(const float rhs) const;
 
 	vec4 &operator+=(const vec4 &rhs);
+	vec4 &operator+=(const float &rhs);
 	vec4 &operator-=(const vec4 &rhs);
 	vec4 &operator*=(const float rhs);
 	vec4 &operator/=(const float rhs);
