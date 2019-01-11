@@ -181,6 +181,13 @@ vec2 vec2::getRotated(float deg) const
 	return temp;
 }
 
+vec2 & vec2::operator-=(const float & rhs)
+{
+	x -= rhs;
+	y -= rhs;
+	return *this;
+}
+
 vec2 &vec2::rotate(float deg)
 {
 	// get current angle first

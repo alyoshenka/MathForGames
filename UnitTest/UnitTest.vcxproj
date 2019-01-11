@@ -138,6 +138,7 @@
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="particleSpawner.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="player2.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
     <ClInclude Include="particle.h" />
     <ClInclude Include="particleSpawner.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="player2.h" />
     <ClInclude Include="test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

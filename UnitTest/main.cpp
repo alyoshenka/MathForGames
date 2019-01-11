@@ -22,6 +22,7 @@
 
 #include "test.h"
 #include "particleSpawner.h"
+#include "player2.h"
 
 #include "unitTest.h"
 
@@ -300,155 +301,19 @@ int main() {
 	// transform2d test
 	// demo application
 
-	InitWindow(600, 400, "transform2d");
+	InitWindow(1000, 700, "transform2d");
 
-	Texture2D guy = LoadTexture("ice_zombie.png");
-	transform2d guyT;
-	Rectangle guyRec = { 0, 0, guy.width, guy.height };
-	guyT.localScale = { 3, 3 };
-	guyT.localPos = { 200, 200 };
-	// guyT.localRot = PI / 2;
-
-	Texture2D staff = LoadTexture("staff.png");
-	transform2d staffT;
-	Rectangle staffRec = { 0, 0, staff.width, staff.height };
-	staffT.localPos = { 30, 10 };
-	staffT.localScale = { 0.5f, 0.5f };
-
-	staffT.setParent(&guyT);
-	guyT.addChild(&staffT);
-
-	float rotSpd = 0.0005f;
-	float scaleSpd = 0.1f;
-
-	const int bulletAlloc = 10;
-	// bullet positions
-	vec2 pos[bulletAlloc];
-	// bullet angles, < 0 = unused
-	float angle[bulletAlloc];
-	float bulletSpd = 200.0f;
+	player2 guy;
 
 	while (!WindowShouldClose())
 	{
-
-		if (IsKeyDown(KEY_LEFT))
-		{
-			if (IsKeyDown(KEY_ONE))
-			{
-				guyT.localRot -= rotSpd;
-			}
-			if (IsKeyDown(KEY_TWO))
-			{
-				staffT.localRot -= rotSpd;
-			}
-		}
-		if (IsKeyDown(KEY_RIGHT))
-		{
-			if (IsKeyDown(KEY_ONE))
-			{
-				guyT.localRot += rotSpd;
-			}
-			if (IsKeyDown(KEY_TWO))
-			{
-				staffT.localRot += rotSpd;
-			}
-		}
-
-		if (GetMouseWheelMove() > 0)
-		{
-			if (IsKeyDown(KEY_ONE))
-			{
-				guyT.localScale.x += scaleSpd;
-				guyT.localScale.y += scaleSpd;
-			}
-			if (IsKeyDown(KEY_TWO))
-			{
-				staffT.localScale.x += scaleSpd;
-				staffT.localScale.y += scaleSpd;
-			}
-		}
-		if (GetMouseWheelMove() < 0)
-		{
-			if (IsKeyDown(KEY_ONE))
-			{
-				guyT.localScale.x -= scaleSpd;
-				guyT.localScale.y -= scaleSpd;
-			}
-			if (IsKeyDown(KEY_TWO))
-			{
-				staffT.localScale.x -= scaleSpd;
-				staffT.localScale.y -= scaleSpd;
-			}
-		}
-
-		Rectangle guyScaleRec = { guyT.worldPosition().x, guyT.worldPosition().y,
-			guy.width * guyT.worldScale().x, guy.height * guyT.worldScale().y };
-		Rectangle staffScaleRec = { staffT.worldPosition().x, staffT.worldPosition().y,
-			staff.width * staffT.worldScale().x, staff.height * staffT.worldScale().y };
-
-		vec2 guyOrig = { guy.width / 2.0f * guyT.worldScale().x, guy.height / 2.0f * guyT.worldScale().y };
-		vec2 staffOrig = { staff.width / 2.0f * staffT.worldScale().x, staff.height / 2.0f * staffT.worldScale().y };
-
-		// bullets
-		if (IsMouseButtonPressed(0))
-		{
-			// search for avail
-			for (int i = 0; i < bulletAlloc; i++)
-			{
-				if (angle[i] < 0)
-				{
-					// fire
-					vec2 staffHead = staffT.worldPosition();					
-					// don't make angle negative
-					// - 90 deg = + 270 deg)
-					angle[i] = staffT.worldRotation() + 3 * PI / 2;
-					// staffHead.y += sin(angle[i]) * staffOrig.y;
-
-					// bulletWid / 2;
-					// staffHead.x -= 2.5;
-					pos[i] = staffHead;
-					break;
-				}
-			}
-		}
-		// update
-		for (int i = 0; i < bulletAlloc; i++)
-		{
-			// deallocate
-			if (pos[i].x > GetScreenWidth() || pos[i].x < -5 ||
-				pos[i].y > GetScreenHeight() || pos[i].y < -5)
-			{
-				angle[i] = -1.0f;
-			}
-			// or update
-			else 
-			{
-				pos[i].x += cos(angle[i]) * bulletSpd * GetFrameTime();
-				pos[i].y += sin(angle[i]) * bulletSpd * GetFrameTime();
-			}
-		}
+		guy.update();
 
 		BeginDrawing();
 
 		ClearBackground(WHITE);
 
-		// bullets
-		for (int i = 0; i < bulletAlloc; i++)
-		{
-			if (angle[i] >= 0)
-			{
-				DrawRectangleV(pos[i], { 5, 5 }, GRAY);
-			}
-		}
-
-		// NOTE: Using DrawTexturePro() we can easily rotate and scale the part of the texture we draw
-		// sourceRec defines the part of the texture we use for drawing
-		// destRec defines the rectangle where our texture part will fit (scaling it to fit)
-		// origin defines the point of the texture used as reference for rotation and scaling
-		// rotation defines the texture rotation (using origin as rotation point)
-
-		DrawTexturePro(guy, guyRec, guyScaleRec, guyOrig, guyT.worldRotation() * RAD_TO_DEG, WHITE);
-		DrawTexturePro(staff, staffRec, staffScaleRec, staffOrig, staffT.worldRotation() * RAD_TO_DEG, WHITE);
+		guy.draw();
 
 		// explanation
 		std::string s1 = "1 to move parent (ice zombie)";
@@ -463,9 +328,6 @@ int main() {
 
 		EndDrawing();
 	}
-
-	UnloadTexture(guy);
-	UnloadTexture(staff);
 
 	CloseWindow();
 

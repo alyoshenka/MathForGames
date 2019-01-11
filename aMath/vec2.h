@@ -70,6 +70,8 @@ struct vec2 {
 	static vec2 moveTowards(const vec2 & cur, const vec2 & tar, float maxDelta);
 	vec2 &rotate(float deg);
 	vec2 getRotated(float deg) const;
+
+	vec2 &operator-=(const float &rhs);
 };
 
 

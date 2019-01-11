@@ -43,15 +43,7 @@ void transform2d::setForward(const vec2 & newFwd)
 
 mat3 transform2d::getLocalTRSMatrix() const
 {
-	mat3 base;
-	base = mat3::identity();
-	
-	// translate, rotate, scale
-	base *= base.translation(localPos);
-	base *= base.rotation(localRot);
-	base *= base.scale(localScale.x, localScale.y);
-
-	return base;
+	return mat3::translation(localPos) * mat3::rotation(localRot) * mat3::scale(localScale.x, localScale.y);
 }
 
 mat3 transform2d::getWorldTRSMatrix() const
@@ -84,30 +76,33 @@ transform2d * transform2d::getTopParent() const
 
 vec2 transform2d::worldPosition() const
 {
-	transform2d * temp = parent;
+	std::stack<transform2d *> heirarchy;
 
-	if (parent == nullptr)
-	{
-		return localPos;
-	}
-
-	vec2 worldPos = { 0, 0 };
-
+	transform2d *temp = parent;
 	while (temp != nullptr)
 	{
-		float ratio = localPos.y / localPos.x;
-		if (ratio != ratio) // nan
-		{
-			ratio = 0.0f;
-		}
-
-		worldPos.x += temp->localPos.x + localPos.x * cos(temp->localRot) * temp->localScale.x * ratio;
-		worldPos.y += temp->localPos.y + localPos.x * sin(temp->localRot) * temp->localScale.y * ratio; // no idea why using x
-		
+		heirarchy.push(temp);
 		temp = temp->parent;
 	}
 
-	return worldPos;
+	mat3 mat = mat3::identity();
+	while (heirarchy.size() > 0)
+	{
+		mat *= heirarchy.top()->getLocalTRSMatrix().getTranspose();
+		heirarchy.pop();
+	}
+
+	vec3 delta = mat * vec3(localPos.x, localPos.y, 0);
+	if (parent != nullptr)
+	{
+		delta.x += parent->localPos.x;
+		delta.y += parent->localPos.y;
+	}
+
+
+	// mat3 test = getWorldTRSMatrix();
+
+	return { delta.x, delta.y };
 }
 
 float transform2d::worldRotation() const
