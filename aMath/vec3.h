@@ -21,6 +21,8 @@ public:
 	vec3 &scale(const vec3 &rhs);
 	vec3 getScaled(const vec3 &rhs) const;
 
+	float angleBetween(const vec3 &rhs); // test
+
 	vec3 operator+(const vec3 &rhs) const;
 	vec3 operator-(const vec3 &rhs) const;
 	vec3 operator*(const float rhs) const;
@@ -39,6 +41,11 @@ public:
 
 	operator float *();
 	operator const float *() const;
+
+	// perhaps unintuitive, used for transforms
+	vec3 &operator/(const vec3 rhs);
+	vec3 &operator*=(const vec3 rhs);
+	vec3 &operator/=(const vec3 rhs);
 };
 
 vec3 operator*(const float lhs, const vec3 &rhs);

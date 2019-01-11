@@ -44,5 +44,4 @@ struct transform2d
 private:
 	transform2d * parent;
 	std::vector<transform2d *> children;
-
 };

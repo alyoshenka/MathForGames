@@ -95,9 +95,15 @@ vec2 transform2d::worldPosition() const
 
 	while (temp != nullptr)
 	{
-		worldPos.x += temp->localPos.x + localPos.x * cos(temp->localRot) * temp->localScale.x;
-		// no idea why only y needs ratio
-		worldPos.y += temp->localPos.y + localPos.y * sin(temp->localRot) * temp->localScale.y / (localPos.y / localPos.x);
+		float ratio = localPos.y / localPos.x;
+		if (ratio != ratio) // nan
+		{
+			ratio = 0.0f;
+		}
+
+		worldPos.x += temp->localPos.x + localPos.x * cos(temp->localRot) * temp->localScale.x * ratio;
+		worldPos.y += temp->localPos.y + localPos.x * sin(temp->localRot) * temp->localScale.y * ratio; // no idea why using x
+		
 		temp = temp->parent;
 	}
 

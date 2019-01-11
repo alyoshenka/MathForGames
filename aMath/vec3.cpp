@@ -68,6 +68,12 @@ vec3 vec3::getScaled(const vec3 & rhs) const
 	return vec3(x, y, z).scale(rhs);
 }
 
+float vec3::angleBetween(const vec3 & rhs)
+{
+	// has been tested
+	return acos(this->dot(rhs) / (magnitude() * rhs.magnitude()));
+}
+
 vec3 vec3::operator+(const vec3 & rhs) const
 {
 	vec3 temp(x, y, z);
@@ -160,6 +166,29 @@ vec3::operator float*()
 vec3::operator const float*() const
 {
 	return &x;
+}
+
+vec3 & vec3::operator/(const vec3 rhs)
+{
+	vec3 temp(*this);
+	temp /= rhs;
+	return temp;
+}
+
+vec3 & vec3::operator*=(const vec3 rhs)
+{
+	x *= rhs.x;
+	y *= rhs.y;
+	z *= rhs.z;
+	return *this;
+}
+
+vec3 & vec3::operator/=(const vec3 rhs)
+{
+	x /= rhs.x;
+	y /= rhs.y;
+	z /= rhs.z;
+	return *this;
 }
 
 vec3 operator*(const float lhs, const vec3 & rhs)

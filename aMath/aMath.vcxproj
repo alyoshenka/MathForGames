@@ -122,6 +122,7 @@
     <ClInclude Include="mat4.h" />
     <ClInclude Include="random.h" />
     <ClInclude Include="transform2d.h" />
+    <ClInclude Include="transform3d.h" />
     <ClInclude Include="unitTest.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="vec2.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="mat3.cpp" />
     <ClCompile Include="mat4.cpp" />
     <ClCompile Include="transform2d.cpp" />
+    <ClCompile Include="transform3d.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="vec2.cpp" />
     <ClCompile Include="vec3.cpp" />

@@ -51,6 +51,9 @@
     <ClInclude Include="coolThings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="transform3d.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils.cpp">
@@ -75,6 +78,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="mat4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transform3d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

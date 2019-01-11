@@ -64,31 +64,7 @@ vec3 & mat3::operator[](const int index)
 mat3 mat3::operator*(const mat3 & rhs) const
 {
 	mat3 temp;
-	// ultimately make loop
-	// [row][col]
-	/*temp.m1 = mm[0][0] * rhs.mm[0][0] + mm[0][1] * rhs.mm[1][0] + mm[0][2] * rhs.mm[2][0];
-	temp.m2 = mm[1][0] * rhs.mm[0][0] + mm[1][1] * rhs.mm[1][0] + mm[1][2] * rhs.mm[2][0];
-	temp.m3 = mm[2][0] * rhs.mm[0][0] + mm[2][1] * rhs.mm[1][0] + mm[2][2] * rhs.mm[2][0];
-	temp.m4 = mm[0][0] * rhs.mm[0][1] + mm[0][1] * rhs.mm[1][1] + mm[0][2] * rhs.mm[2][1];
-	temp.m5 = mm[1][0] * rhs.mm[0][1] + mm[1][1] * rhs.mm[1][1] + mm[1][2] * rhs.mm[2][1];
-	temp.m6 = mm[2][0] * rhs.mm[0][1] + mm[2][1] * rhs.mm[1][1] + mm[2][2] * rhs.mm[2][1];
-	temp.m7 = mm[0][0] * rhs.mm[0][2] + mm[0][1] * rhs.mm[1][2] + mm[0][2] * rhs.mm[2][2];
-	temp.m8 = mm[1][0] * rhs.mm[0][2] + mm[1][1] * rhs.mm[1][2] + mm[1][2] * rhs.mm[2][2];
-	temp.m9 = mm[2][0] * rhs.mm[0][2] + mm[2][1] * rhs.mm[1][2] + mm[2][2] * rhs.mm[2][2];*/
-
 	mat3 transp = getTranspose();
-
-	/*temp.m1 = transp.xAxis.dot(rhs.xAxis);
-	temp.m2 = transp.yAxis.dot(rhs.xAxis);
-	temp.m3 = transp.zAxis.dot(rhs.xAxis);
-
-	temp.m4 = transp.xAxis.dot(rhs.yAxis);
-	temp.m5 = transp.yAxis.dot(rhs.yAxis);
-	temp.m6 = transp.zAxis.dot(rhs.yAxis);
-
-	temp.m7 = transp.xAxis.dot(rhs.zAxis);
-	temp.m8 = transp.yAxis.dot(rhs.zAxis);
-	temp.m9 = transp.zAxis.dot(rhs.zAxis);*/
 
 	for (int n = 0; n < 3; n++)
 	{
@@ -132,9 +108,9 @@ bool mat3::operator!=(const mat3 & rhs) const
 mat3 mat3::identity()
 {
 	mat3 temp;
-	temp.m1 = 1.0f;
-	temp.m4 = 1.0f;
-	temp.m7 = 1.0f;
+	temp.m[0] = 1.0f;
+	temp.m[4] = 1.0f;
+	temp.m[8] = 1.0f;
 	return temp;
 }
 
@@ -253,4 +229,16 @@ mat3 mat3::rotationZ(float rot)
 	temp.m9 = 1.0f;
 
 	return temp;
+}
+
+void mat3::print()
+{
+	for (int c = 0; c < 3; c++)
+	{
+		for (int r = 0; r < 3; r++)
+		{
+			std::cout << mm[c][r] << " ";
+		}
+		std::cout << std::endl;
+	}
 }

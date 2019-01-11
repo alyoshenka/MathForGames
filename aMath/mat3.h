@@ -1,4 +1,5 @@
 #include "math.h"
+#include <iostream>
 
 #include "vec3.h"
 #include "vec2.h"
@@ -87,4 +88,7 @@ struct mat3
 	static mat3 rotationY(float rot);
 	// rad
 	static mat3 rotationZ(float rot);
+
+	// helper
+	void print();
 };

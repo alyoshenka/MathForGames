@@ -3,6 +3,8 @@
 #include "vec4.h"
 #include "vec3.h"
 
+#include <iostream>
+
 struct mat4
 {
 	union
@@ -46,7 +48,9 @@ struct mat4
 	static mat4 rotationX(float xRotation);
 	static mat4 rotationY(float yRotation);
 	static mat4 rotationZ(float zRotation);
-	// static mat4 rotation(float x, float y, float z);
+	static mat4 rotation(float x, float y, float z);
+	// x y z w 0-3
+	// static mat4 rotation(const vec3 &axis, float angle);
 	static mat4 scale(float xScale, float yScale, float zScale);
 	static mat4 scale(const vec3 &vec);
 
@@ -78,4 +82,6 @@ struct mat4
 
 	bool operator==(const mat4 &rhs) const;
 	bool operator!=(const mat4 &rhs) const;
+
+	void print();
 };

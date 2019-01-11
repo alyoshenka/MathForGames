@@ -56,9 +56,9 @@ mat4 mat4::identity()
 {
 	mat4 temp;
 	temp.m1 = 1.0f;
-	temp.m5 = 1.0f;
-	temp.m9 = 1.0f;
-	temp.m13 = 1.0f;
+	temp.m6 = 1.0f;
+	temp.m11 = 1.0f;
+	temp.m16 = 1.0f;
 	return temp;
 }
 
@@ -109,6 +109,20 @@ mat4 mat4::rotationZ(float zRotation)
 	temp.m5 = -sin(zRotation);
 	temp.m6 = cos(zRotation);
 	temp.m16 = 1.0f;
+	return temp;
+}
+
+mat4 mat4::rotation(float x, float y, float z)
+{
+	mat4 mx = mat4::rotationX(x);
+	mat4 my = mat4::rotationY(y);
+	mat4 mz = mat4::rotationZ(z);
+
+	mat4 temp = mat4::identity();
+	temp *= mx;
+	temp *= my;
+	temp *= mz;
+
 	return temp;
 }
 
@@ -231,6 +245,18 @@ bool mat4::operator==(const mat4 & rhs) const
 bool mat4::operator!=(const mat4 & rhs) const
 {
 	return !(*this == rhs);
+}
+
+void mat4::print()
+{
+	for (int c = 0; c < 4; c++)
+	{
+		for (int r = 0; r < 4; r++)
+		{
+			std::cout << mm[c][r] << " ";
+		}
+		std::cout << std::endl;
+	}
 }
 
 void mat4::set(float _m1, float _m2, float _m3, float _m4, float _m5, float _m6, float _m7, float _m8, float _m9, float _m10, float _m11, float _m12, float _m13, float _m14, float _m15, float _m16)

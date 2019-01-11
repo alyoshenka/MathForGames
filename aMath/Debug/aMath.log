@@ -1,2 +1,14 @@
-﻿  transform2d.cpp
+﻿  mat3.cpp
+  transform2d.cpp
+  utils.cpp
+  vec2.cpp
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(71): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(187): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(192): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(200): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+c:\users\s189076\source\repos\mathforgames\amath\vec2.cpp(201): warning C4244: '*=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+c:\users\s189076\source\repos\mathforgames\amath\mat3.cpp(61): warning C4172: returning address of local variable or temporary: temp
+c:\users\s189076\source\repos\mathforgames\amath\mat3.cpp(196): warning C4717: 'mat3::operator*': recursive on all control paths, function will cause runtime stack overflow
   aMath.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\aMath.lib

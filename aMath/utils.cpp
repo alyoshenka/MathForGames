@@ -49,7 +49,7 @@ int clamp(int value, int min, int max)
 	return value;
 }
 
-int abs(int val)
+int absoluteVal(int val)
 {
 	if (val < 0) {
 		val *= -1;

@@ -28,7 +28,7 @@ const double DEG_TO_RAD = PI / 180.0;
 const double RAD_TO_DEG = 180.0 / PI;
 
 // eturns the absolute value of val
-int abs(int val);
+int absoluteVal(int val);
 
 int pow(int base, int power);
 
