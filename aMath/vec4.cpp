@@ -168,7 +168,7 @@ vec4 & vec4::operator/=(const float rhs)
 
 bool vec4::operator==(const vec4 & rhs) const
 {
-	float val = FLT_EPSILON * 100; // on its own might be too small
+	float val = EQUAL; // on its own might be too small
 
 	vec4 dif;
 	dif.x = x - rhs.x;

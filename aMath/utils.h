@@ -21,13 +21,16 @@ int clamp(int value, int min, int max);
 	#define PI 3.14159265358979323846f
 #endif
 
+// padding for checking if values are equal
+const float EQUAL = FLT_EPSILON * 100;
+
 // multiply this with a angle measure expressed in degrees to get its equivalent in radians
-const double DEG_TO_RAD = PI / 180.0;
+const float DEG_TO_RAD = PI / 180.0f;
 
 // multiply this with a angle measure expressed in radians to get its equivalent in degrees
-const double RAD_TO_DEG = 180.0 / PI;
+const float RAD_TO_DEG = 180.0f / PI;
 
-// eturns the absolute value of val
+// returns the absolute value of val
 int absoluteVal(int val);
 
 int pow(int base, int power);

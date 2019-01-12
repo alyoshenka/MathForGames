@@ -1,6 +1,6 @@
 #pragma once
 #include <cfloat>
-#include "math.h"
+#include <cmath>
 #include "utils.h"
 
 // typedef vec2 Vector2;
@@ -71,7 +71,11 @@ struct vec2 {
 	vec2 &rotate(float deg);
 	vec2 getRotated(float deg) const;
 
+	// to make matrix work easier
 	vec2 &operator-=(const float &rhs);
+	vec2 &operator/=(const vec2 &rhs);
+	vec2 &operator/=(const float &rhs);
+	vec2 &operator/(const vec2 &rhs);
 };
 
 

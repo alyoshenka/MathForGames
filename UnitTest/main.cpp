@@ -33,6 +33,13 @@
 #define minMacro(a, b) ((a) < (b) ? (a) : (b))
 #define sumMacro(a, b) (a + b)
 
+// To Do
+// transform3d
+// TEST vec2 mat3::operator*(const vec2 & rhs) const
+// worldTRSMatrix needs to multiply all together
+// rotation @ 180 / 0 deg
+// need to transpose for child pos
+
 int main() {
 
 	// Unit Test
@@ -298,22 +305,31 @@ int main() {
 	aassert("minMacro", 1, minMacro(1, 4)); // pass
 	aassert("sumMacro", 5, sumMacro(1, 3)); // fail if ENABLE_HALT_ON_FAILURE defined
 
-	// transform2d test
-	// demo application
 
+	// demo application
 	InitWindow(1000, 700, "transform2d");
 
 	player2 guy;
+	// player2 guy2;
+
+	 // guy2.playerT.localPos = { 300, 100 };
+
+	/* guy2.playerT.setParent(&guy.staffT);
+	 guy.staffT.addChild(&guy2.playerT);*/
+
+
 
 	while (!WindowShouldClose())
 	{
-		guy.update();
+		 guy.update();
+		// guy2.update();
 
 		BeginDrawing();
 
 		ClearBackground(WHITE);
 
-		guy.draw();
+		 guy.draw();
+		//  guy2.draw();
 
 		// explanation
 		std::string s1 = "1 to move parent (ice zombie)";
@@ -330,113 +346,6 @@ int main() {
 	}
 
 	CloseWindow();
-
-	/*
-	InitWindow(800, 600, "trnsform gizmos");
-
-	Rectangle bigBlue = {10, 10, 50, 50};
-	Rectangle medRed = {20, 70, 30, 30}; 
-	Rectangle lilYellow = {30, 110, 10, 10};
-	Rectangle choiceRecs[3] = {bigBlue, medRed, lilYellow};
-	Color choiceColors[3] = {BLUE, RED, YELLOW};
-
-	enum Rects 
-	{
-		n = -1, // n
-		b, // blue
-		r, // red
-		y // yellow
-	};
-
-	Rects current = n;
-
-	struct obj
-	{
-		transform2d transform;
-		Rects type;
-		Rectangle rec;
-		Color c;
-	};
-
-	const int poolS = 100;
-	obj objects[poolS];
-	int idx = 0;
-
-	while (!WindowShouldClose())
-	{
-		// select rectangle
-		if (IsMouseButtonPressed(0))
-		{
-			vec2 pos = GetMousePosition();
-			// select new
-			if (current == n)
-			{
-
-				if (CheckCollisionPointRec(pos, bigBlue))
-				{
-					current = b;
-				}
-				else if (CheckCollisionPointRec(pos, medRed))
-				{
-					current = r;
-				}
-				else if (CheckCollisionPointRec(pos, lilYellow))
-				{
-					current = y;
-				}
-			}
-
-			// parent/ place
-			else
-			{
-				obj temp;
-				temp.type = current;
-				temp.rec = choiceRecs[current];
-				temp.transform.localPos = pos;
-				temp.c = choiceColors[current];
-
-				bool parented = false;
-				// check if parenting
-				for (int i = 0; i < idx; i++) 
-				{
-					if (CheckCollisionPointRec(pos, objects[i].rec))
-					{
-						temp.transform.setParent(&objects[i].transform);
-						objects[i].transform.addChild(&temp.transform);
-						objects[i] = temp;
-						idx++;
-						parented = true;
-						break;
-					}
-				}
-				// otherwise place
-				if (!parented)
-				{
-					objects[idx++] = temp;
-				}
-
-				// reset
-				current = n;
-			}
-		}
-
-		BeginDrawing();
-
-		ClearBackground(BLACK);
-
-		// selections
-		DrawRectangleRec(bigBlue, BLUE);
-		DrawRectangleRec(medRed, RED);
-		DrawRectangleRec(lilYellow, YELLOW);
-
-		for (int i = 0; i < idx; i++)
-		{
-			DrawRectangleRec({ objects[i].transform.worldPosition().x, objects[i].transform.worldPosition().y, objects[i].rec.width, objects[i].rec.height }, objects[i].c);
-		}
-
-		EndDrawing();
-	}
-	*/
 
 	return 0;
 }

@@ -27,12 +27,7 @@ mat3::mat3(float * ptr) : mat3()
 	{
 		for (int i = 0; i < 9; i++)
 		{
-			m[i] = *ptr;
-			ptr++;
-			// this puts ptr into unauthorized territory
-			// at the end but since i am not accessing it
-			// it should be ok
-			// (famous last words)
+			m[i] = *(ptr+i);
 		}
 	}	
 }
@@ -57,8 +52,7 @@ mat3::operator float*()
 
 vec3 & mat3::operator[](const int index)
 {
-	vec3 temp = { mm[index][0], mm[index][1], mm[index][2] };
-	return temp;
+	return axis[index];
 }
 
 mat3 mat3::operator*(const mat3 & rhs) const
@@ -88,7 +82,7 @@ bool mat3::operator==(const mat3 & rhs) const
 	bool test = false;
 	for (int i = 0; i < 9; i++)
 	{
-		if (m[i] - rhs.m[i] <= FLT_EPSILON * 100 && m[i] - rhs.m[i] >= -1 * FLT_EPSILON * 100)
+		if (m[i] - rhs.m[i] <= EQUAL && m[i] - rhs.m[i] >= -1 * EQUAL)
 		{
 			test = true;
 		}
@@ -162,7 +156,7 @@ mat3 mat3::translation(const vec2 & vec)
 // rot in rad
 mat3 mat3::rotation(float rot)
 {
-	return mat3((float)cos(rot), (float)sin(rot), 0.0f,
+	return mat3(cos(rot), sin(rot), 0.0f,
 				(-sin(rot)), cos(rot), 0.0f,
 				0.0f, 0.0f, 1.0f);
 }
@@ -187,22 +181,18 @@ vec3 mat3::operator*(const vec3 & rhs) const
 
 vec2 mat3::operator*(const vec2 & rhs) const
 {
-	// remember, mat3 used for 2d
-	vec2 temp;
-	temp.x = (*this * rhs).x;
-	temp.y = (*this * rhs).y;
-
-	return temp;
+	vec3 temp = *this * vec3(rhs.x, rhs.y, 0);
+	return {temp.x, temp.y};
 }
 
 mat3 mat3::rotationX(float rot)
 {
 	mat3 temp;
 	temp.m1 = 1.0f;
-	temp.m5 = (float)cos(rot);
-	temp.m6 = (float)sin(rot);
-	temp.m8 = (float)-sin(rot);
-	temp.m9 = (float)cos(rot);
+	temp.m5 = cos(rot);
+	temp.m6 = sin(rot);
+	temp.m8 = -sin(rot);
+	temp.m9 = cos(rot);
 
 	return temp;
 }

@@ -48,5 +48,5 @@ void ball::update()
 
 void ball::draw()
 {
-	DrawTexture(texture, pos.x, pos.y, WHITE);
+	DrawTexture(texture, (int)pos.x, (int)pos.y, WHITE);
 }

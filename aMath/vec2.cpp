@@ -103,7 +103,7 @@ vec2 & vec2::operator-=(const vec2 & rhs)
 
 bool vec2::operator==(const vec2 rhs) const
 {
-	float val = FLT_EPSILON * 1000; // on its own might be too small
+	float val = EQUAL; // on its own might be too small
 
 	vec2 dif;
 	dif.x = x - rhs.x;
@@ -186,6 +186,26 @@ vec2 & vec2::operator-=(const float & rhs)
 	x -= rhs;
 	y -= rhs;
 	return *this;
+}
+
+vec2 & vec2::operator/=(const vec2 & rhs)
+{
+	x /= rhs.x;
+	y /= rhs.y;
+	return *this;
+}
+
+vec2 & vec2::operator/=(const float & rhs)
+{
+	*this /= vec2(rhs, rhs);
+	return *this;
+}
+
+vec2 & vec2::operator/(const vec2 & rhs)
+{
+	vec2 temp = { x, y };
+	temp /= rhs;
+	return temp;
 }
 
 vec2 &vec2::rotate(float deg)

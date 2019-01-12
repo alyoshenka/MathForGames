@@ -43,95 +43,65 @@ void transform2d::setForward(const vec2 & newFwd)
 
 mat3 transform2d::getLocalTRSMatrix() const
 {
+	// T * R * S == (((thing * S) * R) * T)
 	return mat3::translation(localPos) * mat3::rotation(localRot) * mat3::scale(localScale.x, localScale.y);
 }
 
 mat3 transform2d::getWorldTRSMatrix() const
 {
-	mat3 base;
-	base = getLocalTRSMatrix();
-
-	// multiply by parent matrix
-	transform2d * tempParent = parent;
-
-	while (tempParent != nullptr)
+	if (parent == nullptr)
 	{
-		// multiply matrices to compound affects
-		base *= tempParent->getLocalTRSMatrix();
-		tempParent = tempParent->parent;
+		return getLocalTRSMatrix();
 	}
 
-	return base;
-}
+	// will iterate to top
+	// return parent->getWorldTRSMatrix();
 
-transform2d * transform2d::getTopParent() const
-{
-	transform2d * temp = parent;
-	while (temp != nullptr)
-	{
-		temp = temp->parent;
-	}
-	return temp;
-}
-
-vec2 transform2d::worldPosition() const
-{
+	// ahhh I forgot how to do it conceptually
 	std::stack<transform2d *> heirarchy;
-
-	transform2d *temp = parent;
+	transform2d * temp = parent;
 	while (temp != nullptr)
 	{
 		heirarchy.push(temp);
 		temp = temp->parent;
 	}
 
-	mat3 mat = mat3::identity();
+	mat3 base = mat3::identity();
 	while (heirarchy.size() > 0)
 	{
-		mat *= heirarchy.top()->getLocalTRSMatrix().getTranspose();
+		base *= heirarchy.top()->getLocalTRSMatrix().getTranspose();
 		heirarchy.pop();
 	}
 
-	vec3 delta = mat * vec3(localPos.x, localPos.y, 0);
-	if (parent != nullptr)
-	{
-		delta.x += parent->localPos.x;
-		delta.y += parent->localPos.y;
-	}
+	// base *= getLocalTRSMatrix();
 
-
-	// mat3 test = getWorldTRSMatrix();
-
-	return { delta.x, delta.y };
+	return base;
 }
 
-float transform2d::worldRotation() const
+vec2 transform2d::worldPosition() const
 {
-	transform2d * temp = parent;
-	float worldRot = localRot;
+	mat3 t = getWorldTRSMatrix();	
+	return { t.m7, t.m8 };
+}
 
-	while (temp != nullptr)
-	{
-		worldRot += temp->localRot;
-		temp = temp->parent;
-	}
+vec2 transform2d::worldRotation() const
+{
+	mat3 t = getWorldTRSMatrix();
+	return { t.m1, t.m2 };
+}
 
-	return worldRot;
+float transform2d::worldRotationFromOrig()
+{
+	vec2 v2 = worldRotation();
+	return atan2(v2.y, v2.x);
 }
 
 vec2 transform2d::worldScale() const
 {
-	transform2d * temp = parent;
-	vec2 worldScale = localScale;
-
-	while (temp != nullptr)
-	{
-		worldScale.x *= temp->localScale.x;
-		worldScale.y *= temp->localScale.y;
-		temp = temp->parent;
-	}
-
-	return worldScale;
+	mat3 t = getWorldTRSMatrix();
+	vec2 v1(t.m1, t.m2);
+	vec2 v2(t.m4, t.m5);
+	return { v1.magnitude(), v2.magnitude() };
 }
 
 void transform2d::setParent(transform2d * _parent)

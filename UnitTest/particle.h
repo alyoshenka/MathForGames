@@ -1,7 +1,7 @@
 #pragma once
 #include "raylib.h"
 #include "lerp.h"
-#include "math.h"
+#include <cmath>
 #include "vec2.h"
 #include <string>
 

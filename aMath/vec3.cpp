@@ -136,7 +136,7 @@ vec3 & vec3::operator/=(const float rhs)
 
 bool vec3::operator==(const vec3 & rhs) const
 {
-	float val = FLT_EPSILON * 100; // on its own might be too small
+	float val = EQUAL; // on its own might be too small
 
 	vec3 dif;
 	dif.x = x - rhs.x;

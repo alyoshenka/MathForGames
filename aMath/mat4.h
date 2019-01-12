@@ -2,6 +2,7 @@
 
 #include "vec4.h"
 #include "vec3.h"
+#include "utils.h"
 
 #include <iostream>
 

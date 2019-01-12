@@ -230,7 +230,7 @@ bool mat4::operator==(const mat4 & rhs) const
 	bool test = false;
 	for (int i = 0; i < 16; i++)
 	{
-		if (m[i] - rhs.m[i] <= FLT_EPSILON * 1000 && m[i] - rhs.m[i] >= -1 * FLT_EPSILON * 1000)
+		if (m[i] - rhs.m[i] <= EQUAL && m[i] - rhs.m[i] >= -1 * EQUAL)
 		{
 			test = true;
 		}

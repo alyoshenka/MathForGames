@@ -1,1 +1,2 @@
-﻿  UnitTest.vcxproj -> C:\Users\s189076\source\repos\mathforgames\Debug\UnitTest.exe
+﻿  main.cpp
+c:\users\s189076\source\repos\mathforgames\unittest\main.cpp : fatal error C1041: cannot open program database 'C:\Users\s189076\source\repos\mathforgames\UnitTest\Debug\vc141.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS

@@ -25,13 +25,13 @@ struct transform2d
 	mat3 getLocalTRSMatrix() const;
 	// relative to world
 	mat3 getWorldTRSMatrix() const;
-	// top of heirarchy
-	transform2d * getTopParent() const;
 
 	// adds local positions
 	vec2 worldPosition() const;
 	// add up all local rotations
-	float worldRotation() const;
+	vec2 worldRotation() const;
+	// return angle to orig (rad)
+	float worldRotationFromOrig(); // test
 	// multiply all local scales
 	vec2 worldScale() const;
 

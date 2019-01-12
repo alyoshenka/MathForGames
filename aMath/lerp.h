@@ -1,5 +1,5 @@
 #pragma once
-#include "math.h"
+#include <cmath>
 
 // start, end, scale
 template <typename T>

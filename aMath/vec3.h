@@ -1,6 +1,7 @@
 #pragma once
-#include "math.h"
-#include <cfloat>
+#include <cmath>
+// #include <cfloat>
+#include "utils.h"
 
 class vec3
 {
