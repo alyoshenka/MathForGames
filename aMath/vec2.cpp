@@ -68,7 +68,8 @@ vec2 vec2::getPerpCCW() const
 // return rad
 float vec2::angleBetween(const vec2 & rhs) const
 {
-	return acos(this->dot(rhs) / (this->magnitude() * rhs.magnitude()));
+	int neg = y - rhs.y < 0 ? -1 : 1;
+	return acos(this->dot(rhs) / (this->magnitude() * rhs.magnitude())) * neg;
 }
 
 vec2 vec2::operator+(const vec2 & rhs) const

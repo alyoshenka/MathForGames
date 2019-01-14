@@ -9,6 +9,10 @@ transform2d::transform2d()
 	parent = nullptr;
 }
 
+transform2d::~transform2d()
+{
+}
+
 void transform2d::translate(const vec2 & offset)
 {
 	localPos += offset;
@@ -44,6 +48,7 @@ void transform2d::setForward(const vec2 & newFwd)
 mat3 transform2d::getLocalTRSMatrix() const
 {
 	// T * R * S == (((thing * S) * R) * T)
+
 	return mat3::translation(localPos) * mat3::rotation(localRot) * mat3::scale(localScale.x, localScale.y);
 }
 
@@ -54,10 +59,6 @@ mat3 transform2d::getWorldTRSMatrix() const
 		return getLocalTRSMatrix();
 	}
 
-	// will iterate to top
-	// return parent->getWorldTRSMatrix();
-
-	// ahhh I forgot how to do it conceptually
 	std::stack<transform2d *> heirarchy;
 	transform2d * temp = parent;
 	while (temp != nullptr)
@@ -69,11 +70,11 @@ mat3 transform2d::getWorldTRSMatrix() const
 	mat3 base = mat3::identity();
 	while (heirarchy.size() > 0)
 	{
-		base *= heirarchy.top()->getLocalTRSMatrix().getTranspose();
+		base *= heirarchy.top()->getLocalTRSMatrix();
 		heirarchy.pop();
 	}
 
-	// base *= getLocalTRSMatrix();
+	base *= getLocalTRSMatrix();
 
 	return base;
 }

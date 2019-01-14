@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+// row-major
 struct mat4
 {
 	union

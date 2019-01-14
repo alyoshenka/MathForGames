@@ -6,6 +6,7 @@
 struct transform2d
 {
 	transform2d();
+	~transform2d();
 
 	vec2 localPos;
 	// rad

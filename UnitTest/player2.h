@@ -13,6 +13,7 @@ public:
 	Rectangle staffRec;
 	Rectangle knightRec;
 
+	transform2d origin;
 	transform2d playerT;
 	transform2d staffT;
 	transform2d knightT;

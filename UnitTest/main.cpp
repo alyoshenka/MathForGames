@@ -149,12 +149,13 @@ int main() {
 	// matrix rotation
 	mat3 m3a, m3b, m3c, m3d;
 	mat4 m4a, m4b, m4c, m4d;
-	m3a = mat3::rotationX(3.98f);
-	m4a = mat4::rotationX(4.5f);
-	m3b = mat3::rotationY(1.76f);
-	m4b = mat4::rotationY(-2.6f);
-	m3c = mat3::rotationZ(9.62f);
-	m4c = mat4::rotationZ(0.72f);
+	// row-major so transpose
+	m3a = mat3::rotationX(3.98f).getTranspose();
+	m4a = mat4::rotationX(4.5f).getTranspose();
+	m3b = mat3::rotationY(1.76f).getTranspose();
+	m4b = mat4::rotationY(-2.6f).getTranspose();
+	m3c = mat3::rotationZ(9.62f).getTranspose();
+	m4c = mat4::rotationZ(0.72f).getTranspose();
 
 	TEST("Matrix3 set rotate", m3a, mat3(1, 0, 0, 0, -0.668648f, -0.743579f, 0, 0.743579f, -0.668648f));
 	TEST("Matrix3 set rotate", m3b, mat3(-0.188077f, 0, -0.982154f, 0, 1, 0, 0.982154f, 0, -0.188077f));
@@ -189,14 +190,14 @@ int main() {
 		0, 1, 0,
 		0, 0, 1);
 	m3b.axis[2] = vec3(55, 44, 1);
-	m3c = mat3::rotationZ(2.2f);
+	m3c = mat3::rotationZ(2.2f).getTranspose();
 	m3c.axis[2] = vec3(55, 44, 1);
 	m4b = mat4(1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
 		0, 0, 0, 1);
 	m4b.axis[3] = vec4(55, 44, 99, 1);
-	m4c = mat4::rotationZ(2.2f);
+	m4c = mat4::rotationZ(2.2f).getTranspose();
 	m4c.axis[3] = vec4(55, 44, 99, 1);
 
 	v3a = vec3(13.5f, -48.23f, 1);
@@ -329,18 +330,22 @@ int main() {
 		ClearBackground(WHITE);
 
 		 guy.draw();
+		 mat3 temp = guy.staffT.getLocalTRSMatrix();
+		 mat3 temp2 = guy.staffT.getWorldTRSMatrix();
 		//  guy2.draw();
 
 		// explanation
 		std::string s1 = "1 to move parent (ice zombie)";
-		std::string s2 = "2 to move child (goblin)";
+		std::string s2 = "2 to move child (staff)";
 		std::string s3 = "LEFT and RIGHT to rotate";
 		std::string s4 = "MOUSE WHEEL to scale";
+		std::string s5 = "MOUSE LEFT to shoot";
 
 		DrawText(s1.c_str(), 10, 10, 10, BLACK);
 		DrawText(s2.c_str(), 10, 25, 10, BLACK);
 		DrawText(s3.c_str(), 10, 40, 10, BLACK);
 		DrawText(s4.c_str(), 10, 55, 10, BLACK);
+		DrawText(s5.c_str(), 10, 70, 10, BLACK);
 
 		EndDrawing();
 	}

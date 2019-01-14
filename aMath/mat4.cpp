@@ -81,8 +81,8 @@ mat4 mat4::rotationX(float xRotation)
 	mat4 temp;
 	temp.m1 = 1.0f;
 	temp.m6 = cos(xRotation);
-	temp.m7 = sin(xRotation);
-	temp.m10 = -sin(xRotation);
+	temp.m7 = -sin(xRotation);
+	temp.m10 = sin(xRotation);
 	temp.m11 = cos(xRotation);
 	temp.m16 = 1.0f;
 	return temp;
@@ -93,8 +93,8 @@ mat4 mat4::rotationY(float yRotation)
 	mat4 temp;
 	temp.m6 = 1.0f;
 	temp.m1 = cos(yRotation);
-	temp.m3 = -sin(yRotation);
-	temp.m9 = sin(yRotation);
+	temp.m3 = sin(yRotation);
+	temp.m9 = -sin(yRotation);
 	temp.m11 = cos(yRotation);
 	temp.m16 = 1.0f;
 	return temp;
@@ -105,8 +105,8 @@ mat4 mat4::rotationZ(float zRotation)
 	mat4 temp;
 	temp.m11 = 1.0f;
 	temp.m1 = cos(zRotation);
-	temp.m2 = sin(zRotation);
-	temp.m5 = -sin(zRotation);
+	temp.m2 = -sin(zRotation);
+	temp.m5 = sin(zRotation);
 	temp.m6 = cos(zRotation);
 	temp.m16 = 1.0f;
 	return temp;

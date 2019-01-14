@@ -64,11 +64,11 @@ mat3 mat3::operator*(const mat3 & rhs) const
 	{
 		for (int m = 0; m < 3; m++)
 		{
-			temp.mm[m][n] = transp.axis[m].dot(rhs.axis[n]);
+			temp.mm[n][m] = transp.axis[n].dot(rhs.axis[m]);
 		}
 	}
 
-	return temp;	
+	return temp.getTranspose();	
 }
 
 mat3 & mat3::operator*=(const mat3 & rhs)
@@ -156,8 +156,8 @@ mat3 mat3::translation(const vec2 & vec)
 // rot in rad
 mat3 mat3::rotation(float rot)
 {
-	return mat3(cos(rot), sin(rot), 0.0f,
-				(-sin(rot)), cos(rot), 0.0f,
+	return mat3(cos(rot), -sin(rot), 0.0f,
+				sin(rot), cos(rot), 0.0f,
 				0.0f, 0.0f, 1.0f);
 }
 
@@ -190,8 +190,8 @@ mat3 mat3::rotationX(float rot)
 	mat3 temp;
 	temp.m1 = 1.0f;
 	temp.m5 = cos(rot);
-	temp.m6 = sin(rot);
-	temp.m8 = -sin(rot);
+	temp.m6 = -sin(rot);
+	temp.m8 = sin(rot);
 	temp.m9 = cos(rot);
 
 	return temp;
@@ -201,9 +201,9 @@ mat3 mat3::rotationY(float rot)
 {
 	mat3 temp;
 	temp.m1 = cos(rot);
-	temp.m3 = -sin(rot);
+	temp.m3 = sin(rot);
 	temp.m5 = 1.0f;
-	temp.m7 = sin(rot);
+	temp.m7 = -sin(rot);
 	temp.m9 = cos(rot);
 
 	return temp;
@@ -213,8 +213,8 @@ mat3 mat3::rotationZ(float rot)
 {
 	mat3 temp;
 	temp.m1 = cos(rot);
-	temp.m2 = sin(rot);
-	temp.m4 = -sin(rot);
+	temp.m2 = -sin(rot);
+	temp.m4 = sin(rot);
 	temp.m5 = cos(rot);
 	temp.m9 = 1.0f;
 
@@ -227,7 +227,7 @@ void mat3::print()
 	{
 		for (int r = 0; r < 3; r++)
 		{
-			std::cout << mm[c][r] << " ";
+			std::cout << mm[r][c] << " ";
 		}
 		std::cout << std::endl;
 	}

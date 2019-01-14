@@ -5,7 +5,7 @@
 #include "vec2.h"
 
 // row x column
-// column-major
+// row-major
 struct mat3
 {
 	// (not standards compliant)

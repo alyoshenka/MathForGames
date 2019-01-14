@@ -8,14 +8,18 @@ player2::player2()
 
 	playerRec = { 0, 0, (float)player.width, (float)player.height };
 	staffRec = { 0, 0, (float)staff.width, (float)staff.height };
-	staffRec = { 0, 0, (float)knight.width, (float)knight.height };
+	knightRec = { 0, 0, (float)knight.width, (float)knight.height };
 
-	playerT.localScale = { 1, 1 };
+	// origin = default
+	playerT.localScale = { 3, 3 };
 	playerT.localPos = { 400, 400 };
-	staffT.localPos = { 300, 10 };
+	staffT.localPos = { 8, 1 };
 	staffT.localScale = { 0.5f, 0.5f };
-	knightT.localScale = { 1, 1 };
-	knightT.localPos = {-50, 40};
+	knightT.localScale = { 0.5f, 0.5f };
+	knightT.localPos = {12, 7};
+
+	playerT.setParent(&origin);
+	origin.addChild(&playerT);
 
 	staffT.setParent(&playerT);
 	playerT.addChild(&staffT);
@@ -40,6 +44,12 @@ player2::player2()
 	playerOrig = { player.width / 2.0f * p.x, player.height / 2.0f * p.y };
 	staffOrig = { staff.width / 2.0f * s.x, staff.height / 2.0f * s.y };
 	knightOrig = { knight.width / 2.0f * k.x, knight.height / 2.0f * k.y };
+
+	// set to "deallocated"
+	for (int i = 0; i < bulletAlloc; i++)
+	{
+		pos[i] = { -10, -10 };
+	}
 }
 
 player2::~player2()
@@ -109,10 +119,8 @@ void player2::update()
 	vec2 ss = staffT.worldScale();
 	vec2 ks = knightT.worldScale();
 
-	// p /= ps; // why?
-
-	playerScaleRec = { (p / ps).x, (p / ps).y, player.width * ps.x, player.height * ps.y };
-	staffScaleRec = { (s / ss).x, (s / ss).y, staff.width*2 * ss.x, staff.height * ss.y };
+	playerScaleRec = { p.x, p.y, player.width * ps.x, player.height * ps.y };
+	staffScaleRec = { s.x, s.y, staff.width * ss.x, staff.height * ss.y };
 	knightScaleRec = { k.x, k.y, knight.width * ks.x, knight.height * ks.y };
 
 	playerOrig = { player.width / 2.0f * ps.x, player.height / 2.0f * ps.y };
@@ -131,11 +139,8 @@ void player2::update()
 				vec2 staffHead = staffT.worldPosition();
 				// don't make angle negative
 				// - 90 deg = + 270 deg)
-				angle[i] = staffT.worldRotation().angleBetween(vec2(1, 0)) + 3 * PI / 2;
-				// staffHead.y += sin(angle[i]) * staffOrig.y;
+				angle[i] = staffT.worldRotation().angleBetween({ 1, 0 }) + 3 * PI / 2;
 
-				// bulletWid / 2;
-				staffHead -= 2.5;
 				pos[i] = staffHead;
 				break;
 			}
@@ -178,5 +183,5 @@ void player2::draw()
 
 	DrawTexturePro(player, playerRec, playerScaleRec, playerOrig, playerT.worldRotationFromOrig() * RAD_TO_DEG, WHITE);
 	DrawTexturePro(staff, staffRec, staffScaleRec, staffOrig, staffT.worldRotationFromOrig() * RAD_TO_DEG, WHITE);
-	// DrawTexturePro(knight, knightRec, knightScaleRec, knightOrig, knightT.worldRotationFromOrig() * RAD_TO_DEG, WHITE);
+	DrawTexturePro(knight, knightRec, knightScaleRec, knightOrig, knightT.worldRotationFromOrig() * RAD_TO_DEG, WHITE);
 }
