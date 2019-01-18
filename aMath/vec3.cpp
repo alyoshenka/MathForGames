@@ -168,11 +168,9 @@ vec3::operator const float*() const
 	return &x;
 }
 
-vec3 & vec3::operator/(const vec3 rhs)
+vec3  vec3::operator/(const vec3 rhs)
 {
-	vec3 temp(*this);
-	temp /= rhs;
-	return temp;
+	return { x / rhs.x, y / rhs.y, z / rhs.z };
 }
 
 vec3 & vec3::operator*=(const vec3 rhs)

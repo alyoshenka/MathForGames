@@ -202,11 +202,9 @@ vec2 & vec2::operator/=(const float & rhs)
 	return *this;
 }
 
-vec2 & vec2::operator/(const vec2 & rhs)
+vec2 vec2::operator/(const vec2 & rhs)
 {
-	vec2 temp = { x, y };
-	temp /= rhs;
-	return temp;
+	return { x / rhs.x, y / rhs.y };
 }
 
 vec2 &vec2::rotate(float deg)

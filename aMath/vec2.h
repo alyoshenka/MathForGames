@@ -75,7 +75,7 @@ struct vec2 {
 	vec2 &operator-=(const float &rhs);
 	vec2 &operator/=(const vec2 &rhs);
 	vec2 &operator/=(const float &rhs);
-	vec2 &operator/(const vec2 &rhs);
+	vec2 operator/(const vec2 &rhs);
 };
 
 

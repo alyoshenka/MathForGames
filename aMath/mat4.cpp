@@ -152,14 +152,12 @@ mat4::operator const float*() const
 
 vec4 & mat4::operator[](const int index)
 {
-	vec4 temp = { mm[index][0], mm[index][1], mm[index][2], mm[index][3] };
-	return temp;
+	return axis[index];
 }
 
 const vec4 & mat4::operator[](const int index) const
 {
-	vec4 temp = { mm[index][0], mm[index][1], mm[index][2], mm[index][3] };
-	return temp;
+	return axis[index];
 }
 
 mat4 mat4::operator*(const mat4 & rhs) const

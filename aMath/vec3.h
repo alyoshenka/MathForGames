@@ -44,7 +44,7 @@ public:
 	operator const float *() const;
 
 	// perhaps unintuitive, used for transforms
-	vec3 &operator/(const vec3 rhs);
+	vec3 operator/(const vec3 rhs);
 	vec3 &operator*=(const vec3 rhs);
 	vec3 &operator/=(const vec3 rhs);
 };

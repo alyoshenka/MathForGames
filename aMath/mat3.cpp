@@ -11,6 +11,7 @@ mat3::mat3()
 	m7 = 0.0f;
 	m8 = 0.0f;
 	m9 = 0.0f;
+	return;
 }
 
 mat3::~mat3()
